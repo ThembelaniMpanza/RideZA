@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import {
   View,
   StyleSheet,
@@ -24,15 +24,12 @@ const IntroductionAnimationScreen: React.FC = () => {
   const window = useWindowDimensions();
   const { isDark, colors } = useTheme();
 
-  const [currentPage, setCurrentPage] = useState(0);
-
   const animationController = useRef<Animated.Value>(new Animated.Value(0));
   const animValue = useRef<number>(0);
 
   useEffect(() => {
     animationController.current.addListener(({ value }) => {
       animValue.current = value;
-      setCurrentPage(value);
     });
   }, []);
 

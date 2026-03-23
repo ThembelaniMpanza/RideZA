@@ -64,7 +64,7 @@ const SplashView: React.FC<Props> = ({ onNextClick, animationController }) => {
             touchOpacity={0.6}
             onPress={() => onNextClick()}
           >
-            <Text style={styles.buttonText}>Let's begin</Text>
+            <Text style={styles.buttonText}>Let&apos;s begin</Text>
           </MyPressable>
         </View>
       </View>

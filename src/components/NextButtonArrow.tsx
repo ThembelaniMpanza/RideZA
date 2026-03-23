@@ -2,15 +2,11 @@ import React, { useRef } from 'react';
 import { StyleSheet, Text, Animated } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import MyPressable from '../components/MyPressable';
-import { View } from 'react-native';
 
 interface Props {
   onBtnPress: () => void;
   animationController: React.MutableRefObject<Animated.Value>;
 }
-
-// const IconPressable = Animated.createAnimatedComponent(Icon);
-const AnimatedView = Animated.createAnimatedComponent(View);
 
 /*
  * TODO:- find better solution for this animation so we don't have to use 'useNativeDriver: false' in 'IntroductionAnimationScreen.tsx' as width doesn't support it yet

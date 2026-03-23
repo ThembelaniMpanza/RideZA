@@ -3,7 +3,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from '../screens/home/HomeScreen'; // adjust path accordingly
 import OnboardingScreen from '../screens/Auth/WelcomeScreen'; // adjust path accordingly
-import { Header, HeaderShownContext } from '@react-navigation/elements';
 
 const Stack = createStackNavigator();
 
