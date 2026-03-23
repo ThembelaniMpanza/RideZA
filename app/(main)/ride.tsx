@@ -460,7 +460,7 @@ export default function RideTab() {
 
           {!hasDestinationText && (
             <Text style={styles.helper}>
-              Example: "Sandton City" or "12 Main Rd, Cape Town"
+              Example: &quot;Sandton City&quot; or &quot;12 Main Rd, Cape Town&quot;
             </Text>
           )}
         </BlurView>

@@ -9,7 +9,7 @@ import {
   Platform,
 } from 'react-native';
 
-interface Props {}
+type Props = Record<string, never>;
 
 export const DURATION = {
   LENGTH_SHORT: 2000,
@@ -35,9 +35,11 @@ const Toast: React.FC<Props> = React.forwardRef((_props, ref) => {
 
   useImperativeHandle(ref, () => ({
     show: (text: string) => {
-      Platform.OS === 'android'
-        ? ToastAndroid.show(text, ToastAndroid.SHORT)
-        : show(text);
+      if (Platform.OS === 'android') {
+        ToastAndroid.show(text, ToastAndroid.SHORT);
+        return;
+      }
+      show(text);
     },
   }));
 
@@ -116,5 +118,7 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
   },
 });
+
+Toast.displayName = 'Toast';
 
 export default Toast;

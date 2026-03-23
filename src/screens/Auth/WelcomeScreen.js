@@ -1,11 +1,8 @@
-import React, { useRef, useState } from 'react';
-import { View, Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
+import React from 'react';
+import { View, Text, Button } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
 export default function OnboardingScreen({ navigation }) {
-
   const handleFinishOnboarding = async () => {
     await AsyncStorage.setItem('hasOnboarded', 'true');
     navigation.replace('Main');
@@ -13,7 +10,7 @@ export default function OnboardingScreen({ navigation }) {
 
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>👋 Welcome to the App!</Text>
+      <Text>Welcome to the App!</Text>
       <Button title="Get Started" onPress={handleFinishOnboarding} />
     </View>
   );
