@@ -12,7 +12,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { useTheme } from "../../src/theme/ThemeProvider";
+import { useTheme } from "@/src/theme/ThemeProvider";
 
 const DEFAULT_TEST_ACCOUNT = { email: "test@rideza.com", password: "password123" };
 
@@ -23,10 +23,12 @@ export default function LoginScreen() {
   const [loading, setLoading] = useState(false);
 
   const styles = useMemo(() => makeStyles(colors), [colors]);
+  const showTestAccountHint =
+    __DEV__ || process.env.EXPO_PUBLIC_SHOW_TEST_ACCOUNT === "1";
 
   const isValid = useMemo(() => {
     return /\S+@\S+\.\S+/.test(email) && password.length >= 6;
-  }, [email, password]);
+  }, [email, password.length]);
 
   const onSignIn = async () => {
     if (!isValid) {
@@ -55,9 +57,11 @@ export default function LoginScreen() {
         password === storedPassword;
 
       if (!isDefaultTest && !isStoredTest) {
-        throw new Error(
+        Alert.alert(
+          "Sign in failed",
           `Invalid credentials. Use ${DEFAULT_TEST_ACCOUNT.email} / ${DEFAULT_TEST_ACCOUNT.password} for testing.`,
         );
+        return;
       }
 
       const token = "fake-jwt-token";
@@ -84,7 +88,7 @@ export default function LoginScreen() {
         <Text style={styles.title}>Welcome Back</Text>
         <Text style={styles.subtitle}>Sign in to continue</Text>
 
-        {__DEV__ && (
+        {showTestAccountHint && (
           <View style={styles.hint}>
             <Text style={styles.hintText}>
               Test account: {DEFAULT_TEST_ACCOUNT.email} / {DEFAULT_TEST_ACCOUNT.password}
