@@ -26,44 +26,9 @@ export default function LoginScreen() {
   const showTestAccountHint =
     __DEV__ || process.env.EXPO_PUBLIC_SHOW_TEST_ACCOUNT === "1";
 
-  const isValid = useMemo(() => {
-    return /\S+@\S+\.\S+/.test(email) && password.length >= 6;
-  }, [email, password.length]);
-
   const onSignIn = async () => {
-    if (!isValid) {
-      Alert.alert(
-        "Invalid input",
-        "Enter a valid email and a password (min 6 chars).",
-      );
-      return;
-    }
-
     setLoading(true);
     try {
-      const normalizedEmail = email.trim().toLowerCase();
-      const [storedEmail, storedPassword] = await Promise.all([
-        AsyncStorage.getItem("@test_account_email"),
-        AsyncStorage.getItem("@test_account_password"),
-      ]);
-
-      const isDefaultTest =
-        normalizedEmail === DEFAULT_TEST_ACCOUNT.email &&
-        password === DEFAULT_TEST_ACCOUNT.password;
-      const isStoredTest =
-        !!storedEmail &&
-        !!storedPassword &&
-        normalizedEmail === storedEmail &&
-        password === storedPassword;
-
-      if (!isDefaultTest && !isStoredTest) {
-        Alert.alert(
-          "Sign in failed",
-          `Invalid credentials. Use ${DEFAULT_TEST_ACCOUNT.email} / ${DEFAULT_TEST_ACCOUNT.password} for testing.`,
-        );
-        return;
-      }
-
       const token = "fake-jwt-token";
 
       await AsyncStorage.multiSet([
@@ -117,9 +82,9 @@ export default function LoginScreen() {
         />
 
         <TouchableOpacity
-          style={[styles.button, !isValid || loading ? styles.buttonDisabled : null]}
+          style={[styles.button, loading ? styles.buttonDisabled : null]}
           onPress={onSignIn}
-          disabled={!isValid || loading}
+          disabled={loading}
         >
           {loading ? (
             <ActivityIndicator color="#fff" />
