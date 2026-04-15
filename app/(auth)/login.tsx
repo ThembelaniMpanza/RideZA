@@ -1,6 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
 import React, { useMemo, useState } from "react";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import {
   ActivityIndicator,
   Alert,
@@ -12,9 +13,8 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { auth, isFirebaseConfigured } from "@/src/services/firebase";
 import { useTheme } from "@/src/theme/ThemeProvider";
-
-const DEFAULT_TEST_ACCOUNT = { email: "test@rideza.com", password: "password123" };
 
 export default function LoginScreen() {
   const { colors } = useTheme();
@@ -23,22 +23,49 @@ export default function LoginScreen() {
   const [loading, setLoading] = useState(false);
 
   const styles = useMemo(() => makeStyles(colors), [colors]);
-  const showTestAccountHint =
-    __DEV__ || process.env.EXPO_PUBLIC_SHOW_TEST_ACCOUNT === "1";
+  const isValid = useMemo(() => {
+    return /\S+@\S+\.\S+/.test(email.trim()) && password.length >= 6;
+  }, [email, password]);
 
   const onSignIn = async () => {
+    if (!isFirebaseConfigured()) {
+      Alert.alert(
+        "Firebase not configured",
+        "Set the EXPO_PUBLIC_FIREBASE_* environment variables before signing in.",
+      );
+      return;
+    }
+
+    if (!isValid) {
+      Alert.alert(
+        "Invalid input",
+        "Enter a valid email and a password with at least 6 characters.",
+      );
+      return;
+    }
+
     setLoading(true);
     try {
-      const token = "fake-jwt-token";
+      const normalizedEmail = email.trim().toLowerCase();
+      const credential = await signInWithEmailAndPassword(
+        auth,
+        normalizedEmail,
+        password,
+      );
+      const token = await credential.user.getIdToken();
 
       await AsyncStorage.multiSet([
         ["@user_token", token],
+        ["@user_email", normalizedEmail],
+        ["@firebase_uid", credential.user.uid],
         ["hasOnboarded", "true"],
       ]);
 
       router.replace("/(main)");
-    } catch (err: any) {
-      Alert.alert("Sign in failed", err?.message || "Please try again.");
+    } catch (error: unknown) {
+      const message =
+        error instanceof Error ? error.message : "Please try again.";
+      Alert.alert("Sign in failed", message);
     } finally {
       setLoading(false);
     }
@@ -51,15 +78,7 @@ export default function LoginScreen() {
     >
       <View style={styles.inner}>
         <Text style={styles.title}>Welcome Back</Text>
-        <Text style={styles.subtitle}>Sign in to continue</Text>
-
-        {showTestAccountHint && (
-          <View style={styles.hint}>
-            <Text style={styles.hintText}>
-              Test account: {DEFAULT_TEST_ACCOUNT.email} / {DEFAULT_TEST_ACCOUNT.password}
-            </Text>
-          </View>
-        )}
+        <Text style={styles.subtitle}>Sign in with your Firebase account</Text>
 
         <TextInput
           style={styles.input}
@@ -82,9 +101,9 @@ export default function LoginScreen() {
         />
 
         <TouchableOpacity
-          style={[styles.button, loading ? styles.buttonDisabled : null]}
+          style={[styles.button, !isValid || loading ? styles.buttonDisabled : null]}
           onPress={onSignIn}
-          disabled={loading}
+          disabled={!isValid || loading}
         >
           {loading ? (
             <ActivityIndicator color="#fff" />
@@ -127,18 +146,9 @@ function makeStyles(colors: any) {
     subtitle: {
       fontSize: 14,
       color: colors.muted,
-      marginBottom: 16,
+      marginBottom: 24,
       textAlign: "center",
     },
-    hint: {
-      marginBottom: 14,
-      padding: 10,
-      borderRadius: 10,
-      backgroundColor: colors.cardSolid,
-      borderWidth: 1,
-      borderColor: colors.border,
-    },
-    hintText: { color: colors.muted, fontSize: 12, textAlign: "center" },
     input: {
       height: 48,
       borderWidth: 1,
