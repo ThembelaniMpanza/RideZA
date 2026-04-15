@@ -1,6 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
 import React, { useMemo, useState } from "react";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import {
   ActivityIndicator,
   Alert,
@@ -12,19 +13,8 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { useTheme } from "../../src/theme/ThemeProvider";
-
-// Placeholder signup call - replace with your real API call.
-function fakeSignUp(
-  email: string,
-  password: string,
-): Promise<{ token: string }> {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve({ token: "fake-jwt-token" });
-    }, 800);
-  });
-}
+import { auth, isFirebaseConfigured } from "@/src/services/firebase";
+import { useTheme } from "@/src/theme/ThemeProvider";
 
 export default function SignupScreen() {
   const { colors } = useTheme();
@@ -43,6 +33,14 @@ export default function SignupScreen() {
   }, [email, password, confirmPassword]);
 
   const onSignUp = async () => {
+    if (!isFirebaseConfigured()) {
+      Alert.alert(
+        "Firebase not configured",
+        "Set the EXPO_PUBLIC_FIREBASE_* environment variables before creating accounts.",
+      );
+      return;
+    }
+
     if (!isValid) {
       Alert.alert(
         "Invalid input",
@@ -54,21 +52,24 @@ export default function SignupScreen() {
     setLoading(true);
     try {
       const normalizedEmail = email.trim().toLowerCase();
-      const { token } = await fakeSignUp(normalizedEmail, password);
-
-      // Store a local "test account" so Login can validate against it during testing.
-      await AsyncStorage.multiSet([
-        ["@test_account_email", normalizedEmail],
-        ["@test_account_password", password],
-      ]);
+      const credential = await createUserWithEmailAndPassword(
+        auth,
+        normalizedEmail,
+        password,
+      );
+      const token = await credential.user.getIdToken();
 
       await AsyncStorage.multiSet([
         ["@user_token", token],
+        ["@user_email", normalizedEmail],
+        ["@firebase_uid", credential.user.uid],
         ["hasOnboarded", "true"],
       ]);
       router.replace("/(main)");
-    } catch (err: any) {
-      Alert.alert("Sign up failed", err?.message || "Please try again.");
+    } catch (error: unknown) {
+      const message =
+        error instanceof Error ? error.message : "Please try again.";
+      Alert.alert("Sign up failed", message);
     } finally {
       setLoading(false);
     }
@@ -81,7 +82,7 @@ export default function SignupScreen() {
     >
       <View style={styles.inner}>
         <Text style={styles.title}>Create Account</Text>
-        <Text style={styles.subtitle}>Sign up to continue</Text>
+        <Text style={styles.subtitle}>Create a Firebase account to continue</Text>
 
         <TextInput
           style={styles.input}
