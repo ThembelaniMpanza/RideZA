@@ -15,6 +15,13 @@ export default function RideOptionsScreen() {
     destLat?: string;
     destLng?: string;
     destLabel?: string;
+    rideClass?: string;
+    rideCarType?: string;
+    rideEta?: string;
+    ridePassengers?: string;
+    ridePrice?: string;
+    paymentMethod?: string;
+    paymentDetails?: string;
   }>();
 
   const pickup = useMemo(() => {
@@ -67,9 +74,30 @@ export default function RideOptionsScreen() {
       </View>
 
       <View style={[styles.card, { backgroundColor: colors.cardSolid, borderColor: colors.border }]}>
-        <Text style={[styles.cardTitle, { color: colors.text }]}>Next</Text>
+        <Text style={[styles.cardTitle, { color: colors.text }]}>Selected ride</Text>
         <Text style={[styles.cardText, { color: colors.text }]}>
-          Vehicle class, price estimate, and request ride will go here.
+          {params.rideClass ? params.rideClass : "No ride class selected"}
+        </Text>
+        <Text style={[styles.small, { color: colors.muted }]}>
+          {params.rideCarType ? params.rideCarType : "Vehicle type unavailable"}
+        </Text>
+        <Text style={[styles.small, { color: colors.muted }]}>
+          {params.ridePassengers && params.rideEta
+            ? `${params.ridePassengers} passengers • Pickup in ${params.rideEta} min`
+            : "Pickup timing unavailable"}
+        </Text>
+        <Text style={[styles.price, { color: colors.text }]}>
+          {params.ridePrice ? `R ${params.ridePrice}` : "Fare unavailable"}
+        </Text>
+      </View>
+
+      <View style={[styles.card, { backgroundColor: colors.cardSolid, borderColor: colors.border }]}>
+        <Text style={[styles.cardTitle, { color: colors.text }]}>Payment</Text>
+        <Text style={[styles.cardText, { color: colors.text }]}>
+          {params.paymentMethod ? params.paymentMethod : "No payment method selected"}
+        </Text>
+        <Text style={[styles.small, { color: colors.muted }]}>
+          {params.paymentDetails ? params.paymentDetails : "Payment details unavailable"}
         </Text>
       </View>
     </View>
@@ -114,5 +142,11 @@ const styles = StyleSheet.create({
     marginTop: 8,
     fontSize: 12,
     color: "#6a6a6a",
+  },
+  price: {
+    marginTop: 10,
+    fontSize: 20,
+    fontWeight: "800",
+    color: "#132137",
   },
 });
