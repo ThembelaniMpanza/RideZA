@@ -46,6 +46,8 @@ export default function MainLayout() {
 
       {/* Not a tab: pushed from the Ride flow */}
       <Tabs.Screen name="ride-options" options={{ href: null }} />
+      <Tabs.Screen name="driver-chat" options={{ href: null }} />
+      <Tabs.Screen name="driver-call" options={{ href: null }} />
 
       {/* Keep index hidden; it just redirects to the default tab. */}
       <Tabs.Screen name="index" options={{ href: null }} />
