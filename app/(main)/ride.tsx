@@ -10,6 +10,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   Pressable,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -99,6 +100,9 @@ type DriverDetails = {
   rating: number;
   etaMinutes: number;
 };
+
+const REVIEW_TAGS = ["Good attitude", "Cool person", "Polite"];
+const TIP_PRESETS = [10, 20, 50];
 
 function toPrettyAddress(a: Location.LocationGeocodedAddress | undefined) {
   if (!a) return "";
@@ -204,6 +208,13 @@ export default function RideTab() {
   const [isPrecisePickupStep, setIsPrecisePickupStep] = useState(false);
   const [isFindingRide, setIsFindingRide] = useState(false);
   const [isDriverFound, setIsDriverFound] = useState(false);
+  const [isDriverWaiting, setIsDriverWaiting] = useState(false);
+  const [isTripInProgress, setIsTripInProgress] = useState(false);
+  const [isTripCompleted, setIsTripCompleted] = useState(false);
+  const [isAwaitingCashConfirmation, setIsAwaitingCashConfirmation] = useState(false);
+  const [isConfirmingCashPayment, setIsConfirmingCashPayment] = useState(false);
+  const [isReviewStage, setIsReviewStage] = useState(false);
+  const [isThankYouStage, setIsThankYouStage] = useState(false);
   const [isRouting, setIsRouting] = useState(false);
   const [routeCoords, setRouteCoords] = useState<LatLng[]>([]);
   const [routeSummary, setRouteSummary] = useState<RouteSummary | null>(null);
@@ -212,6 +223,13 @@ export default function RideTab() {
   const [driverRouteCoords, setDriverRouteCoords] = useState<LatLng[]>([]);
   const [driverDetails, setDriverDetails] = useState<DriverDetails | null>(null);
   const [driverHeading, setDriverHeading] = useState(0);
+  const [tripProgress, setTripProgress] = useState(0);
+  const [tripHeading, setTripHeading] = useState(0);
+  const [selectedRating, setSelectedRating] = useState(0);
+  const [selectedReviewTags, setSelectedReviewTags] = useState<string[]>([]);
+  const [reviewNote, setReviewNote] = useState("");
+  const [selectedTip, setSelectedTip] = useState<number | null>(null);
+  const [customTip, setCustomTip] = useState("");
   const [isFareSheetExpanded, setIsFareSheetExpanded] = useState(true);
   const [selectedRideClass, setSelectedRideClass] = useState<RideClassId>("standard");
   const [isRideSelectionConfirmed, setIsRideSelectionConfirmed] = useState(false);
@@ -219,6 +237,7 @@ export default function RideTab() {
   const [selectedPaymentMethodId, setSelectedPaymentMethodId] =
     useState<PaymentMethodId>("cash");
   const shouldResetRouteFlowRef = useRef(true);
+  const tripProgressAnim = useRef(new Animated.Value(0)).current;
 
   const [region, setRegion] = useState<Region>({
     latitude: -26.2041,
@@ -235,12 +254,36 @@ export default function RideTab() {
     activeField !== null &&
     activeSearchText.length > 0 &&
     (activeField === "pickup" || !isDestinationConfirmed);
-  const showPlanningUi = !isPrecisePickupStep && !isFindingRide && !isDriverFound;
+  const showPlanningUi =
+    !isPrecisePickupStep &&
+    !isFindingRide &&
+    !isDriverFound &&
+    !isDriverWaiting &&
+    !isTripInProgress &&
+    !isTripCompleted &&
+    !isReviewStage &&
+    !isThankYouStage;
 
   useEffect(() => {
     shouldResetRouteFlowRef.current =
-      !isPrecisePickupStep && !isFindingRide && !isDriverFound;
-  }, [isPrecisePickupStep, isFindingRide, isDriverFound]);
+      !isPrecisePickupStep &&
+      !isFindingRide &&
+      !isDriverFound &&
+      !isDriverWaiting &&
+      !isTripInProgress &&
+      !isTripCompleted &&
+      !isReviewStage &&
+      !isThankYouStage;
+  }, [
+    isPrecisePickupStep,
+    isFindingRide,
+    isDriverFound,
+    isDriverWaiting,
+    isTripInProgress,
+    isTripCompleted,
+    isReviewStage,
+    isThankYouStage,
+  ]);
 
   useEffect(() => {
     hasDestinationTextRef.current = hasDestinationText;
@@ -356,6 +399,7 @@ export default function RideTab() {
       paymentMethods[0],
     [paymentMethods, selectedPaymentMethodId],
   );
+  const isCashPayment = selectedPaymentMethod.type === "cash";
   const pulseRouteCoords = useMemo(() => {
     if (routeCoords.length < 2) return [];
     const lastIndex = Math.max(
@@ -376,6 +420,10 @@ export default function RideTab() {
     if (!driverDetails) return null;
     return Math.max(1, Math.ceil(driverDetails.etaMinutes * (1 - driverProgress)));
   }, [driverDetails, driverProgress]);
+  const tripMarkerPoint = useMemo(
+    () => getPointAlongRoute(routeCoords, tripProgress),
+    [routeCoords, tripProgress],
+  );
 
   useEffect(() => {
     const listenerId = routePulse.addListener(({ value }) => {
@@ -397,6 +445,17 @@ export default function RideTab() {
       driverProgressAnim.removeListener(listenerId);
     };
   }, [driverProgressAnim, driverRouteCoords]);
+
+  useEffect(() => {
+    const listenerId = tripProgressAnim.addListener(({ value }) => {
+      setTripProgress(value);
+      setTripHeading(getHeadingAlongRoute(routeCoords, value));
+    });
+
+    return () => {
+      tripProgressAnim.removeListener(listenerId);
+    };
+  }, [tripProgressAnim, routeCoords]);
 
   useEffect(() => {
     if (!isFindingRide || routeCoords.length < 2) {
@@ -500,6 +559,104 @@ export default function RideTab() {
       driverProgressAnim.stopAnimation();
     };
   }, [isDriverFound, driverRouteCoords, driverProgressAnim]);
+
+  useEffect(() => {
+    if (!isDriverFound || driverProgress < 1) return;
+
+    setIsDriverFound(false);
+    setIsDriverWaiting(true);
+  }, [driverProgress, isDriverFound]);
+
+  useEffect(() => {
+    if (!isDriverWaiting) return;
+
+    if (pickupLocation) {
+      const focus = {
+        latitude: pickupLocation.latitude,
+        longitude: pickupLocation.longitude,
+        latitudeDelta: 0.004,
+        longitudeDelta: 0.004,
+      };
+      setRegion(focus);
+      mapRef.current?.animateToRegion(focus, 550);
+    }
+
+    const timeout = setTimeout(() => {
+      setIsDriverWaiting(false);
+      setIsTripInProgress(true);
+      tripProgressAnim.setValue(0);
+    }, 8000);
+
+    return () => clearTimeout(timeout);
+  }, [isDriverWaiting, pickupLocation, tripProgressAnim]);
+
+  useEffect(() => {
+    if (!isTripInProgress || routeCoords.length < 2) {
+      tripProgressAnim.stopAnimation();
+      tripProgressAnim.setValue(0);
+      setTripProgress(0);
+      setTripHeading(0);
+      return;
+    }
+
+    const animation = Animated.timing(tripProgressAnim, {
+      toValue: 1,
+      duration: Math.max(18000, (routeSummary?.durationMinutes ?? 4) * 4500),
+      useNativeDriver: false,
+    });
+
+    mapRef.current?.fitToCoordinates(routeCoords, {
+      edgePadding: {
+        top: 100 + insets.top,
+        bottom: 260,
+        left: 60,
+        right: 60,
+      },
+      animated: true,
+    });
+    tripProgressAnim.setValue(0);
+    animation.start();
+
+    return () => {
+      animation.stop();
+      tripProgressAnim.stopAnimation();
+    };
+  }, [insets.top, isTripInProgress, routeCoords, routeSummary?.durationMinutes, tripProgressAnim]);
+
+  useEffect(() => {
+    if (!isTripInProgress || tripProgress < 1) return;
+
+    setIsTripInProgress(false);
+    setIsTripCompleted(true);
+    setIsAwaitingCashConfirmation(isCashPayment);
+    setIsReviewStage(!isCashPayment);
+  }, [isCashPayment, isTripInProgress, tripProgress]);
+
+  useEffect(() => {
+    if (!isConfirmingCashPayment) return;
+
+    const timeout = setTimeout(() => {
+      setIsConfirmingCashPayment(false);
+      setIsAwaitingCashConfirmation(false);
+      setIsReviewStage(true);
+    }, 5000);
+
+    return () => clearTimeout(timeout);
+  }, [isConfirmingCashPayment]);
+
+  useEffect(() => {
+    if (!isThankYouStage) return;
+
+    const timeout = setTimeout(() => {
+      resetDestinationFlow();
+      setIsThankYouStage(false);
+      setDestinationText("");
+      setSuggestions([]);
+      setActiveField(null);
+    }, 2500);
+
+    return () => clearTimeout(timeout);
+  }, [isThankYouStage]);
 
   // Get and track current location for pickup.
   useEffect(() => {
@@ -656,6 +813,13 @@ export default function RideTab() {
           setIsPrecisePickupStep(false);
           setIsFindingRide(false);
           setIsDriverFound(false);
+          setIsDriverWaiting(false);
+          setIsTripInProgress(false);
+          setIsTripCompleted(false);
+          setIsAwaitingCashConfirmation(false);
+          setIsConfirmingCashPayment(false);
+          setIsReviewStage(false);
+          setIsThankYouStage(false);
         }
         if (!isPrecisePickupStep) {
           mapRef.current?.fitToCoordinates(line, {
@@ -684,6 +848,13 @@ export default function RideTab() {
           setIsPrecisePickupStep(false);
           setIsFindingRide(false);
           setIsDriverFound(false);
+          setIsDriverWaiting(false);
+          setIsTripInProgress(false);
+          setIsTripCompleted(false);
+          setIsAwaitingCashConfirmation(false);
+          setIsConfirmingCashPayment(false);
+          setIsReviewStage(false);
+          setIsThankYouStage(false);
         }
         if (!isPrecisePickupStep) {
           mapRef.current?.fitToCoordinates(line, {
@@ -709,6 +880,13 @@ export default function RideTab() {
     setIsPrecisePickupStep(false);
     setIsFindingRide(false);
     setIsDriverFound(false);
+    setIsDriverWaiting(false);
+    setIsTripInProgress(false);
+    setIsTripCompleted(false);
+    setIsAwaitingCashConfirmation(false);
+    setIsConfirmingCashPayment(false);
+    setIsReviewStage(false);
+    setIsThankYouStage(false);
     setDestinationLocation(null);
     setDestinationLabel("");
     setRouteCoords([]);
@@ -721,6 +899,40 @@ export default function RideTab() {
     setDriverRouteCoords([]);
     setDriverDetails(null);
     setDriverProgress(0);
+    setDriverHeading(0);
+    setTripProgress(0);
+    setTripHeading(0);
+    setSelectedRating(0);
+    setSelectedReviewTags([]);
+    setReviewNote("");
+    setSelectedTip(null);
+    setCustomTip("");
+  };
+
+  const toggleReviewTag = (tag: string) => {
+    setSelectedReviewTags(current =>
+      current.includes(tag)
+        ? current.filter(item => item !== tag)
+        : [...current, tag],
+    );
+  };
+
+  const submitTripReview = () => {
+    if (!driverDetails) return;
+    if (selectedRating < 1) {
+      Alert.alert("Add a rating", "Choose at least one star before submitting.");
+      return;
+    }
+
+    const parsedTip = Number(customTip);
+    const appliedTip =
+      selectedTip ?? (Number.isFinite(parsedTip) && parsedTip > 0 ? parsedTip : 0);
+
+    setIsReviewStage(false);
+    setIsTripCompleted(false);
+    setSelectedTip(appliedTip > 0 ? appliedTip : null);
+    setCustomTip(appliedTip > 0 ? String(appliedTip) : "");
+    setIsThankYouStage(true);
   };
 
   const confirmPickup = (coords: LatLng, label: string) => {
@@ -914,6 +1126,39 @@ export default function RideTab() {
             </View>
           </Marker>
         )}
+
+        {isDriverWaiting && pickupLocation && (
+          <Marker coordinate={pickupLocation} anchor={{ x: 0.5, y: 0.62 }}>
+            <View style={styles.driverMarkerWrap}>
+              <View style={styles.driverMarkerShadow} />
+              <Image
+                source={selectedRide?.image}
+                style={styles.driverMarkerImage}
+                resizeMode="contain"
+              />
+            </View>
+          </Marker>
+        )}
+
+        {(isTripInProgress || isTripCompleted || isAwaitingCashConfirmation || isReviewStage) &&
+          (tripProgress >= 1 ? destinationLocation : tripMarkerPoint) && (
+            <Marker
+              coordinate={(tripProgress >= 1 ? destinationLocation : tripMarkerPoint) as LatLng}
+              anchor={{ x: 0.5, y: 0.62 }}
+            >
+              <View style={styles.driverMarkerWrap}>
+                <View style={styles.driverMarkerShadow} />
+                <Image
+                  source={selectedRide?.image}
+                  style={[
+                    styles.driverMarkerImage,
+                    { transform: [{ rotate: `${tripHeading}deg` }] },
+                  ]}
+                  resizeMode="contain"
+                />
+              </View>
+            </Marker>
+          )}
       </MapView>
 
       {isPrecisePickupStep && (
@@ -1699,6 +1944,429 @@ export default function RideTab() {
             </View>
           </BlurView>
         )}
+
+        {isDriverWaiting && selectedRide && driverDetails && (
+          <BlurView
+            intensity={48}
+            tint={isDark ? "dark" : "light"}
+            style={[styles.confirmCard, { backgroundColor: colors.card }]}
+          >
+            <View style={styles.cardGlassBorder} />
+            <Text style={[styles.confirmTitle, { color: colors.text }]}>
+              Driver waiting at pickup
+            </Text>
+            <Text style={[styles.confirmText, { color: colors.muted }]}>
+              {driverDetails.name} has arrived and marked the pickup as reached. Trip tracking
+              starts now.
+            </Text>
+            <View
+              style={[
+                styles.driverProfileCard,
+                { backgroundColor: colors.cardSolid, borderColor: colors.border },
+              ]}
+            >
+              <View style={styles.driverProfileTop}>
+                <View style={styles.driverAvatar}>
+                  <Text style={styles.driverAvatarText}>
+                    {driverDetails.name
+                      .split(" ")
+                      .map(part => part[0])
+                      .join("")
+                      .slice(0, 2)}
+                  </Text>
+                </View>
+                <View style={styles.driverProfileCopy}>
+                  <Text style={[styles.driverName, { color: colors.text }]}>
+                    {driverDetails.name}
+                  </Text>
+                  <Text style={[styles.driverMeta, { color: colors.muted }]}>
+                    {driverDetails.car} - {driverDetails.plate}
+                  </Text>
+                </View>
+                <Image
+                  source={selectedRide.image}
+                  style={styles.driverProfileCar}
+                  resizeMode="contain"
+                />
+              </View>
+            </View>
+            <Text style={[styles.findingMetaHint, { color: colors.muted }]}>
+              Next: live trip tracking to {destinationLabel || "your destination"}.
+            </Text>
+          </BlurView>
+        )}
+
+        {isTripInProgress && selectedRide && driverDetails && (
+          <BlurView
+            intensity={48}
+            tint={isDark ? "dark" : "light"}
+            style={[styles.confirmCard, { backgroundColor: colors.card }]}
+          >
+            <View style={styles.cardGlassBorder} />
+            <Text style={[styles.confirmTitle, { color: colors.text }]}>
+              Trip in progress
+            </Text>
+            <Text style={[styles.confirmText, { color: colors.muted }]}>
+              {driverDetails.name} is driving you to {destinationLabel || "your destination"}.
+            </Text>
+            <View style={styles.findingMetaRow}>
+              <View style={styles.findingMetaPill}>
+                <Text style={[styles.findingMetaValue, { color: colors.text }]}>
+                  {Math.max(1, Math.ceil((routeSummary?.durationMinutes ?? 4) * (1 - tripProgress)))} min left
+                </Text>
+              </View>
+              <View style={styles.findingMetaPill}>
+                <Text style={[styles.findingMetaValue, { color: colors.text }]}>
+                  {routeSummary?.distanceKm.toFixed(1) ?? "0.0"} km
+                </Text>
+              </View>
+            </View>
+            <Text style={[styles.findingMetaHint, { color: colors.muted }]}>
+              Live route is shown until arrival at the destination.
+            </Text>
+            <View
+              style={[
+                styles.driverProfileCard,
+                { backgroundColor: colors.cardSolid, borderColor: colors.border },
+              ]}
+            >
+              <View style={styles.driverProfileTop}>
+                <View style={styles.driverAvatar}>
+                  <Text style={styles.driverAvatarText}>
+                    {driverDetails.name
+                      .split(" ")
+                      .map(part => part[0])
+                      .join("")
+                      .slice(0, 2)}
+                  </Text>
+                </View>
+                <View style={styles.driverProfileCopy}>
+                  <Text style={[styles.driverName, { color: colors.text }]}>
+                    {driverDetails.name}
+                  </Text>
+                  <Text style={[styles.driverMeta, { color: colors.muted }]}>
+                    Rating {driverDetails.rating.toFixed(2)} - {driverDetails.car}
+                  </Text>
+                </View>
+                <Image
+                  source={selectedRide.image}
+                  style={styles.driverProfileCar}
+                  resizeMode="contain"
+                />
+              </View>
+            </View>
+          </BlurView>
+        )}
+
+        {isAwaitingCashConfirmation && selectedRide && driverDetails && (
+          <BlurView
+            intensity={48}
+            tint={isDark ? "dark" : "light"}
+            style={[styles.confirmCard, { backgroundColor: colors.card }]}
+          >
+            <View style={styles.cardGlassBorder} />
+            <Text style={[styles.confirmTitle, { color: colors.text }]}>
+              Trip complete
+            </Text>
+            <Text style={[styles.confirmText, { color: colors.muted }]}>
+              Pay the driver directly in cash to finish this trip.
+            </Text>
+            <View style={styles.tripSummaryRow}>
+              <Text style={[styles.tripSummaryLabel, { color: colors.muted }]}>Fare amount</Text>
+              <Text style={[styles.tripSummaryValue, { color: colors.text }]}>
+                R {selectedRide.price.toFixed(2)}
+              </Text>
+            </View>
+            <View
+              style={[
+                styles.driverProfileCard,
+                { backgroundColor: colors.cardSolid, borderColor: colors.border },
+              ]}
+            >
+              <View style={styles.driverProfileTop}>
+                <View style={styles.driverAvatar}>
+                  <Text style={styles.driverAvatarText}>
+                    {driverDetails.name
+                      .split(" ")
+                      .map(part => part[0])
+                      .join("")
+                      .slice(0, 2)}
+                  </Text>
+                </View>
+                <View style={styles.driverProfileCopy}>
+                  <Text style={[styles.driverName, { color: colors.text }]}>
+                    {driverDetails.name}
+                  </Text>
+                  <Text style={[styles.driverMeta, { color: colors.muted }]}>
+                    {driverDetails.car} - {driverDetails.plate}
+                  </Text>
+                </View>
+              </View>
+            </View>
+            <Pressable
+              style={({ pressed }) => [
+                styles.confirmBtn,
+                { backgroundColor: colors.primary, opacity: pressed ? 0.82 : 1 },
+              ]}
+              onPress={() => {
+                setIsTripCompleted(false);
+                setIsConfirmingCashPayment(true);
+              }}
+              accessibilityRole="button"
+              accessibilityLabel="Pay driver"
+            >
+              <Text style={[styles.confirmBtnText, { color: colors.onPrimary }]}>
+                Pay driver
+              </Text>
+            </Pressable>
+          </BlurView>
+        )}
+
+        {isConfirmingCashPayment && selectedRide && driverDetails && (
+          <BlurView
+            intensity={48}
+            tint={isDark ? "dark" : "light"}
+            style={[styles.confirmCard, { backgroundColor: colors.card }]}
+          >
+            <View style={styles.cardGlassBorder} />
+            <Text style={[styles.confirmTitle, { color: colors.text }]}>
+              Waiting for driver confirmation
+            </Text>
+            <Text style={[styles.confirmText, { color: colors.muted }]}>
+              We are waiting for {driverDetails.name} to confirm the cash payment on the driver side.
+            </Text>
+            <Text style={[styles.findingMetaHint, { color: colors.muted }]}>
+              Fare: R {selectedRide.price.toFixed(2)}
+            </Text>
+          </BlurView>
+        )}
+
+        {isReviewStage && selectedRide && driverDetails && (
+          <BlurView
+            intensity={48}
+            tint={isDark ? "dark" : "light"}
+            style={[styles.reviewCard, { backgroundColor: colors.card }]}
+          >
+            <View style={styles.cardGlassBorder} />
+            <ScrollView
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={styles.reviewScroll}
+            >
+              <Text style={[styles.confirmTitle, { color: colors.text }]}>
+                Rate your trip
+              </Text>
+              <Text style={[styles.confirmText, { color: colors.muted }]}>
+                Trip finished. Rate the driver, add a note if needed, and leave a tip for card payments.
+              </Text>
+
+              <View
+                style={[
+                  styles.driverProfileCard,
+                  { backgroundColor: colors.cardSolid, borderColor: colors.border },
+                ]}
+              >
+                <View style={styles.driverProfileTop}>
+                  <View style={styles.driverAvatar}>
+                    <Text style={styles.driverAvatarText}>
+                      {driverDetails.name
+                        .split(" ")
+                        .map(part => part[0])
+                        .join("")
+                        .slice(0, 2)}
+                    </Text>
+                  </View>
+                  <View style={styles.driverProfileCopy}>
+                    <Text style={[styles.driverName, { color: colors.text }]}>
+                      {driverDetails.name}
+                    </Text>
+                    <Text style={[styles.driverMeta, { color: colors.muted }]}>
+                      {driverDetails.car} - {driverDetails.plate}
+                    </Text>
+                    <Text style={[styles.driverMeta, { color: colors.muted }]}>
+                      Rating {driverDetails.rating.toFixed(2)}
+                    </Text>
+                  </View>
+                  <Image
+                    source={selectedRide.image}
+                    style={styles.driverProfileCarLarge}
+                    resizeMode="contain"
+                  />
+                </View>
+              </View>
+
+              <View style={styles.ratingRow}>
+                {Array.from({ length: 5 }, (_, index) => {
+                  const star = index + 1;
+                  const active = selectedRating >= star;
+                  return (
+                    <Pressable
+                      key={star}
+                      style={({ pressed }) => [
+                        styles.starButton,
+                        {
+                          backgroundColor: active ? "rgba(245,158,11,0.16)" : colors.cardSolid,
+                          borderColor: active ? "#F59E0B" : colors.border,
+                          opacity: pressed ? 0.8 : 1,
+                        },
+                      ]}
+                      onPress={() => setSelectedRating(star)}
+                    >
+                      <MaterialIcons
+                        name={active ? "star" : "star-border"}
+                        size={24}
+                        color={active ? "#F59E0B" : colors.muted}
+                      />
+                    </Pressable>
+                  );
+                })}
+              </View>
+
+              <Text style={[styles.sectionLabel, { color: colors.text }]}>
+                Rate driver service
+              </Text>
+              <View style={styles.reviewTagsWrap}>
+                {REVIEW_TAGS.map(tag => {
+                  const active = selectedReviewTags.includes(tag);
+                  return (
+                    <Pressable
+                      key={tag}
+                      style={({ pressed }) => [
+                        styles.reviewTag,
+                        {
+                          backgroundColor: active ? colors.primary : colors.cardSolid,
+                          borderColor: active ? colors.primary : colors.border,
+                          opacity: pressed ? 0.82 : 1,
+                        },
+                      ]}
+                      onPress={() => toggleReviewTag(tag)}
+                    >
+                      <Text
+                        style={[
+                          styles.reviewTagText,
+                          { color: active ? colors.onPrimary : colors.text },
+                        ]}
+                      >
+                        {tag}
+                      </Text>
+                    </Pressable>
+                  );
+                })}
+              </View>
+
+              <Text style={[styles.sectionLabel, { color: colors.text }]}>
+                Leave a note
+              </Text>
+              <TextInput
+                style={[
+                  styles.reviewInput,
+                  {
+                    backgroundColor: colors.cardSolid,
+                    color: colors.text,
+                    borderColor: colors.border,
+                  },
+                ]}
+                placeholder="Anything else about the ride?"
+                placeholderTextColor={colors.muted}
+                value={reviewNote}
+                onChangeText={setReviewNote}
+                multiline
+              />
+
+              {!isCashPayment && (
+                <>
+                  <Text style={[styles.sectionLabel, { color: colors.text }]}>
+                    Add a tip
+                  </Text>
+                  <View style={styles.tipRow}>
+                    {TIP_PRESETS.map(amount => {
+                      const active = selectedTip === amount;
+                      return (
+                        <Pressable
+                          key={amount}
+                          style={({ pressed }) => [
+                            styles.tipButton,
+                            {
+                              backgroundColor: active ? colors.primary : colors.cardSolid,
+                              borderColor: active ? colors.primary : colors.border,
+                              opacity: pressed ? 0.82 : 1,
+                            },
+                          ]}
+                          onPress={() => {
+                            setSelectedTip(amount);
+                            setCustomTip("");
+                          }}
+                        >
+                          <Text
+                            style={[
+                              styles.tipButtonText,
+                              { color: active ? colors.onPrimary : colors.text },
+                            ]}
+                          >
+                            R {amount}
+                          </Text>
+                        </Pressable>
+                      );
+                    })}
+                  </View>
+                  <TextInput
+                    style={[
+                      styles.reviewInput,
+                      styles.tipInput,
+                      {
+                        backgroundColor: colors.cardSolid,
+                        color: colors.text,
+                        borderColor: colors.border,
+                      },
+                    ]}
+                    placeholder="Custom tip amount"
+                    placeholderTextColor={colors.muted}
+                    value={customTip}
+                    onChangeText={text => {
+                      setCustomTip(text.replace(/[^0-9.]/g, ""));
+                      setSelectedTip(null);
+                    }}
+                    keyboardType="decimal-pad"
+                  />
+                </>
+              )}
+
+              <Pressable
+                style={({ pressed }) => [
+                  styles.confirmBtn,
+                  { backgroundColor: colors.primary, opacity: pressed ? 0.82 : 1 },
+                ]}
+                onPress={submitTripReview}
+                accessibilityRole="button"
+                accessibilityLabel="Submit review"
+              >
+                <Text style={[styles.confirmBtnText, { color: colors.onPrimary }]}>
+                  Submit review
+                </Text>
+              </Pressable>
+            </ScrollView>
+          </BlurView>
+        )}
+
+        {isThankYouStage && driverDetails && (
+          <BlurView
+            intensity={48}
+            tint={isDark ? "dark" : "light"}
+            style={[styles.confirmCard, { backgroundColor: colors.card }]}
+          >
+            <View style={styles.cardGlassBorder} />
+            <Text style={[styles.confirmTitle, { color: colors.text }]}>
+              Thank you
+            </Text>
+            <Text style={[styles.confirmText, { color: colors.muted }]}>
+              Your trip with {driverDetails.name} is complete. Returning you to the booking page now.
+            </Text>
+            {!isCashPayment && selectedTip && (
+              <Text style={[styles.findingMetaHint, { color: colors.muted }]}>
+                Tip processed: R {selectedTip.toFixed(2)}
+              </Text>
+            )}
+          </BlurView>
+        )}
       </KeyboardAvoidingView>
     </View>
   );
@@ -2106,6 +2774,101 @@ const styles = StyleSheet.create({
   },
   confirmTitle: { fontSize: 16, fontWeight: "800", color: "#132137" },
   confirmText: { marginTop: 6, fontSize: 13, color: "#1f1f1f" },
+  reviewCard: {
+    marginTop: "auto",
+    marginBottom: 12,
+    maxHeight: "72%",
+    borderRadius: 16,
+    overflow: "hidden",
+    backgroundColor: "rgba(255,255,255,0.9)",
+  },
+  reviewScroll: {
+    padding: 14,
+    paddingBottom: 18,
+  },
+  ratingRow: {
+    marginTop: 14,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    gap: 8,
+  },
+  starButton: {
+    flex: 1,
+    height: 48,
+    borderRadius: 14,
+    borderWidth: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  sectionLabel: {
+    marginTop: 16,
+    fontSize: 13,
+    fontWeight: "800",
+  },
+  reviewTagsWrap: {
+    marginTop: 10,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 8,
+  },
+  reviewTag: {
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    borderRadius: 999,
+    borderWidth: 1,
+  },
+  reviewTagText: {
+    fontSize: 13,
+    fontWeight: "700",
+  },
+  reviewInput: {
+    marginTop: 10,
+    minHeight: 96,
+    borderRadius: 14,
+    borderWidth: 1,
+    paddingHorizontal: 12,
+    paddingVertical: 12,
+    textAlignVertical: "top",
+  },
+  tipRow: {
+    marginTop: 10,
+    flexDirection: "row",
+    gap: 8,
+  },
+  tipButton: {
+    flex: 1,
+    height: 44,
+    borderRadius: 14,
+    borderWidth: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  tipButtonText: {
+    fontSize: 14,
+    fontWeight: "700",
+  },
+  tipInput: {
+    minHeight: 48,
+    paddingVertical: 0,
+  },
+  tripSummaryRow: {
+    marginTop: 14,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  tripSummaryLabel: {
+    fontSize: 13,
+    fontWeight: "600",
+  },
+  tripSummaryValue: {
+    fontSize: 22,
+    fontWeight: "900",
+  },
+  driverProfileCarLarge: {
+    width: 74,
+    height: 38,
+  },
   confirmBtn: {
     marginTop: 12,
     height: 46,
