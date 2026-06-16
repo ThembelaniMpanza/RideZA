@@ -1,0 +1,560 @@
+04-19 11:16:43.572  8887  8887 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+04-19 11:16:43.671  8887  8887 I AndroidRuntime: Using default boot image
+04-19 11:16:43.671  8887  8887 I AndroidRuntime: Leaving lock profiling enabled
+04-19 11:16:47.625  8887  8887 D AndroidRuntime: Calling main entry com.android.commands.monkey.Monkey
+04-19 11:16:47.636  8887  8887 W Monkey  : args: [-p, com.thembelanim.rideza, -c, android.intent.category.LAUNCHER, 1]
+04-19 11:16:47.916  8887  8887 W Monkey  :  arg: "com.thembelanim.rideza"
+04-19 11:16:47.917  8887  8887 W Monkey  : data="com.thembelanim.rideza"
+04-19 11:16:49.044   774  1710 V WindowManager: DesktopModeLaunchParamsModifier: phase= 0 task=null activity=ActivityRecord{218308473 u0 com.thembelanim.rideza/.MainActivity display-area-from-current-params=null
+display-area-from-default-fallback=DefaultTaskDisplayArea@118032276 display-id=0 task-display-area-windowing-mode=1 suggested-display-area=DefaultTaskDisplayArea@118032276 task null, skipping
+04-19 11:16:49.044   774  1710 V WindowManager: TaskLaunchParamsModifier:phase=0 task=null activity=ActivityRecord{218308473 u0 com.thembelanim.rideza/.MainActivity t-1} display-area-from-current-params=null
+display-area-from-default-fallback=DefaultTaskDisplayArea@118032276 display-id=0 task-display-area-windowing-mode=1 suggested-display-area=DefaultTaskDisplayArea@118032276
+04-19 11:16:49.054   774  1710 V WindowManager: DesktopModeLaunchParamsModifier: phase= 3 task=null activity=ActivityRecord{218308473 u0 com.thembelanim.rideza/.MainActivity t-1} display-area-from-current-params=null
+display-area-from-default-fallback=DefaultTaskDisplayArea@118032276 display-id=0 task-display-area-windowing-mode=1 suggested-display-area=DefaultTaskDisplayArea@118032276 task null, skipping
+04-19 11:16:49.056   774  1710 V WindowManager: TaskLaunchParamsModifier:phase=3 task=null activity=ActivityRecord{218308473 u0 com.thembelanim.rideza/.MainActivity t-1} display-area-from-current-params=null
+display-area-from-default-fallback=DefaultTaskDisplayArea@118032276 display-id=0 task-display-area-windowing-mode=1 suggested-display-area=DefaultTaskDisplayArea@118032276 non-freeform-task-display-area
+display-area=DefaultTaskDisplayArea@118032276 skip-bounds-fullscreen
+04-19 11:16:49.161   774  1710 V WindowManager: DesktopModeLaunchParamsModifier: phase= 3 task=Task{e8174be #169 type=standard A=10219:com.thembelanim.rideza} activity=ActivityRecord{218308473 u0
+com.thembelanim.rideza/.MainActivity t-1} display-from-task=0 display-id=0 task-display-area-windowing-mode=1 suggested-display-area=DefaultTaskDisplayArea@118032276 not entering desktop mode, skipping
+04-19 11:16:49.163   774  1710 V WindowManager: TaskLaunchParamsModifier:phase=3 task=Task{e8174be #169 type=standard A=10219:com.thembelanim.rideza} activity=ActivityRecord{218308473 u0 com.thembelanim.rideza/.MainActivity
+t-1} display-from-task=0 display-id=0 task-display-area-windowing-mode=1 suggested-display-area=DefaultTaskDisplayArea@118032276 inherit-from-task=fullscreen non-freeform-task-display-area
+display-area=DefaultTaskDisplayArea@118032276 skip-bounds-fullscreen
+04-19 11:16:49.239   774  1710 I ActivityTaskManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.thembelanim.rideza/.MainActivity} with LAUNCH_SINGLE_TASK from uid
+2000 (com.android.shell) (BAL_ALLOW_PERMISSION) result code=0
+04-19 11:16:49.293  1017  1083 V WindowManagerShell: Transition requested (#11): android.os.BinderProxy@a5c2006 TransitionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=169 effectiveUid=10219 displayId=0
+isRunning=true baseIntent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.thembelanim.rideza/.MainActivity }
+baseActivity=ComponentInfo{com.thembelanim.rideza/com.thembelanim.rideza.MainActivity} topActivity=ComponentInfo{com.thembelanim.rideza/com.thembelanim.rideza.MainActivity} origActivity=null
+realActivity=ComponentInfo{com.thembelanim.rideza/com.thembelanim.rideza.MainActivity} numActivities=1 lastActiveTime=58733485 supportsMultiWindow=true resizeMode=1 isResizeable=true minWidth=-1 minHeight=-1
+defaultMinSize=220 token=WCT{android.os.BinderProxy@59fa6c7} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=Rect(0, 0
+- 0, 0) topActivityInfo=ActivityInfo{eb4d4f4 com.thembelanim.rideza.MainActivity} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=false isVisible=false isVisibleRequested=false
+isTopActivityNoDisplay=false isSleeping=false locusId=null displayAreaFeatureId=1 isTopActivityTransparent=false isActivityStackTransparent=false lastNonFullscreenBounds=null capturedLink=null capturedLinkTimestamp=0
+requestedVisibleTypes=503 topActivityRequestOpenInBrowserEducationTimestamp=0 appCompatTaskInfo=AppCompatTaskInfo { topActivityInSizeCompat=false isLeafTask= true eligibleForLetterboxEducation= false
+isLetterboxEducationEnabled= true isLetterboxDoubleTapEnabled= false eligibleForUserAspectRatioButton= false topActivityBoundsLetterboxed= false isFromLetterboxDoubleTap= false topActivityLetterboxVerticalPosition= -1
+topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 topActivityAppBounds=Rect(0, 0 - 1080, 2400) isUserFullscreenOverrideEnabled=false isSystemFullscreenOverrideEnabled=false
+hasMinAspectRatioOverride=false topActivityLetterboxBounds=null cameraCompatTaskInfo=CameraCompatTaskInfo { cameraCompatMode=inactiveundefined} topNonResizableActivityAspectRatio=-1.0} topActivityMainWindowFrame=null
+isAppBubble=false}, pipChange = null, remoteTransition = null, displayChange = null, requestedLocation = null, userChange = null, flags = 0, debugId = 11 }
+04-19 11:16:49.759  8887  8887 I AndroidRuntime: VM exiting with result code 0.
+04-19 11:16:49.801   774   808 I ActivityManager: Start proc 8912:com.thembelanim.rideza/u0a219 for next-top-activity {com.thembelanim.rideza/com.thembelanim.rideza.MainActivity}
+04-19 11:16:49.904  8912  8912 I Zygote  : Process 8912 created for com.thembelanim.rideza
+04-19 11:16:49.973   774  1225 D CoreBackPreview: Window{d6d83b u0 Splash Screen com.thembelanim.rideza}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@fea09c,
+mPriority=0, mIsAnimationCallback=false, mOverrideBehavior=0}
+04-19 11:16:50.509   774   796 V WindowManager: Sent Transition (#11) createdAt=04-19 11:16:49.041 via request=TransitionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=169 effectiveUid=10219 displayId=0
+isRunning=true baseIntent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.thembelanim.rideza/.MainActivity }
+baseActivity=ComponentInfo{com.thembelanim.rideza/com.thembelanim.rideza.MainActivity} topActivity=ComponentInfo{com.thembelanim.rideza/com.thembelanim.rideza.MainActivity} origActivity=null
+realActivity=ComponentInfo{com.thembelanim.rideza/com.thembelanim.rideza.MainActivity} numActivities=1 lastActiveTime=58733485 supportsMultiWindow=true resizeMode=1 isResizeable=true minWidth=-1 minHeight=-1
+defaultMinSize=220 token=WCT{RemoteToken{409f95d Task{e8174be #169 type=standard A=10219:com.thembelanim.rideza}}} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1
+lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=Rect(0, 0 - 0, 0) topActivityInfo=ActivityInfo{d27b2d2 com.thembelanim.rideza.MainActivity} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=false
+isVisible=false isVisibleRequested=false isTopActivityNoDisplay=false isSleeping=false locusId=null displayAreaFeatureId=1 isTopActivityTransparent=false isActivityStackTransparent=false lastNonFullscreenBounds=null
+capturedLink=null capturedLinkTimestamp=0 requestedVisibleTypes=503 topActivityRequestOpenInBrowserEducationTimestamp=0 appCompatTaskInfo=AppCompatTaskInfo { topActivityInSizeCompat=false isLeafTask= true
+eligibleForLetterboxEducation= false isLetterboxEducationEnabled= true isLetterboxDoubleTapEnabled= false eligibleForUserAspectRatioButton= false topActivityBoundsLetterboxed= false isFromLetterboxDoubleTap= false
+topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 topActivityAppBounds=Rect(0, 0 - 1080, 2400) isUserFullscreenOverrideEnabled=false
+isSystemFullscreenOverrideEnabled=false hasMinAspectRatioOverride=false topActivityLetterboxBounds=null cameraCompatTaskInfo=CameraCompatTaskInfo { cameraCompatMode=inactiveundefined} topNonResizableActivityAspectRatio=-1.0}
+topActivityMainWindowFrame=null isAppBubble=false}, pipChange = null, remoteTransition = null, displayChange = null, requestedLocation = null, userChange = null, flags = 0, debugId = 11 }
+04-19 11:16:50.509   774   796 V WindowManager:         {WCT{RemoteToken{409f95d Task{e8174be #169 type=standard A=10219:com.thembelanim.rideza}}} m=OPEN f=NONE leash=Surface(name=Task=169#229)/@0x6051a07 sb=Rect(0, 0 - 1080,
+2400) eb=Rect(0, 0 - 1080, 2400) epz=Point(1080, 2400) d=0 taskParent=-1 winMode=1 userId=0},
+04-19 11:16:50.815  8912  8912 D nativeloader: Configuring clns-9 for other apk /data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/base.apk. target_sdk_version=36, uses_libraries=,
+library_path=/data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/lib/x86_64:/data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/base.apk!/lib/x86_64,
+permitted_path=/data:/mnt/expand:/data/user/0/com.thembelanim.rideza
+04-19 11:16:50.930  8912  8912 V GraphicsEnvironment: com.thembelanim.rideza is not listed in per-application setting
+04-19 11:16:50.930  8912  8912 V GraphicsEnvironment: com.thembelanim.rideza is not listed in ANGLE allowlist or settings, returning default
+04-19 11:16:51.172  8912  8912 W SoLoader: Recording new base apk path: /data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/base.apk
+04-19 11:16:51.174  8912  8912 I SoLoader: Preparing SO source: DirectApkSoSource[root = [/data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/base.apk!/lib/x86_64]]
+04-19 11:16:51.187  8912  8912 I SoLoader: Preparing SO source: ApplicationSoSource[DirectorySoSource[root = /data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/lib/x86_64 flags = 0]]
+04-19 11:16:51.369  8912  8912 D nativeloader: Load /data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/base.apk!/lib/x86_64/libc++_shared.so using class loader ns clns-9
+(caller=/data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/base.apk!classes2.dex): ok
+04-19 11:16:51.667  8912  8912 D nativeloader: Load /data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/base.apk!/lib/x86_64/libjsi.so using class loader ns clns-9
+(caller=/data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/base.apk!classes2.dex): ok
+04-19 11:16:51.701  8912  8912 D nativeloader: Load /data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/base.apk!/lib/x86_64/libfbjni.so using class loader ns clns-9
+(caller=/data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/base.apk!classes2.dex): ok
+04-19 11:16:51.794  8912  8912 D nativeloader: Load /data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/base.apk!/lib/x86_64/libreactnative.so using class loader ns clns-9
+(caller=/data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/base.apk!classes2.dex): ok
+04-19 11:16:51.864  8912  8912 D nativeloader: Load /data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/base.apk!/lib/x86_64/libreact_codegen_rnscreens.so using class loader ns clns-9
+(caller=/data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/base.apk!classes2.dex): ok
+04-19 11:16:51.886  8912  8912 D nativeloader: Load /data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/base.apk!/lib/x86_64/libreact_codegen_safeareacontext.so using class loader ns clns-9
+(caller=/data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/base.apk!classes2.dex): ok
+04-19 11:16:51.920  8912  8912 D nativeloader: Load /data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/base.apk!/lib/x86_64/libappmodules.so using class loader ns clns-9
+(caller=/data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/base.apk!classes2.dex): ok
+04-19 11:16:52.437  8912  8934 D nativeloader: Load /data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/base.apk!/lib/x86_64/libhermes.so using class loader ns clns-9
+(caller=/data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/base.apk!classes2.dex): ok
+04-19 11:16:52.471  8912  8934 D nativeloader: Load /data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/base.apk!/lib/x86_64/libhermestooling.so using class loader ns clns-9
+(caller=/data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/base.apk!classes2.dex): ok
+04-19 11:16:52.702   774  2273 D CoreBackPreview: Window{d0827e7 u0 com.thembelanim.rideza/com.thembelanim.rideza.MainActivity}: Setting back callback
+OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@2636a3d, mPriority=0, mIsAnimationCallback=false, mOverrideBehavior=0}
+04-19 11:16:54.599  8912  8935 D nativeloader: Load /data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/base.apk!/lib/x86_64/libexpo-modules-core.so using class loader ns clns-9
+(caller=/data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/base.apk!classes2.dex): ok
+04-19 11:16:55.848  8912  8935 D nativeloader: Load /data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/base.apk!/lib/x86_64/librnscreens.so using class loader ns clns-9
+(caller=/data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/base.apk!classes2.dex): ok
+04-19 11:16:55.855  8912  8935 I ReactNativeJS: Running "main"
+04-19 11:16:56.236   774   796 I ActivityTaskManager: Displayed com.thembelanim.rideza/.MainActivity for user 0: +7s505ms
+04-19 11:16:56.430   774   888 I ImeTracker: com.thembelanim.rideza:d7ef87b3: onRequestHide at ORIGIN_SERVER reason HIDE_UNSPECIFIED_WINDOW fromUser false
+04-19 11:16:56.576  8912  8912 I ImeTracker: com.thembelanim.rideza:d7ef87b3: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+04-19 11:16:57.054   774  1934 D CoreBackPreview: Window{d6d83b u0 Splash Screen com.thembelanim.rideza}: Setting back callback null
+04-19 11:16:57.065  1379  1379 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1347 onStartInput(EditorInfo{EditorInfo{packageName=com.thembelanim.rideza, inputType=0, inputTypeString=NULL,
+enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0,
+fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+04-19 11:16:57.348   774  1934 W PackageConfigPersister: App-specific configuration not found for packageName: com.thembelanim.rideza and userId: 0
+04-19 11:16:57.564  8912  8961 D ProfileInstaller: Skipping profile installation for com.thembelanim.rideza
+04-19 11:17:25.090  8912  8912 I ImeTracker: com.thembelanim.rideza:7e009374: onRequestShow at ORIGIN_CLIENT reason SHOW_SOFT_INPUT fromUser true
+04-19 11:17:25.120  1379  1379 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1347 onStartInput(EditorInfo{EditorInfo{packageName=com.thembelanim.rideza, inputType=21, inputTypeString=EmailAddress[],
+enableLearning=true, autoCorrection=false, autoComplete=true, imeOptions=8000006, privateImeOptions=null, actionName=DONE, actionLabel=null, initialSelStart=0, initialSelEnd=0, initialCapsMode=0, label=null, fieldId=106,
+fieldName=null, extras=Bundle[mParcelledData.dataSize=404], hintText=non-empty, hintLocales=[]}}, false)
+04-19 11:17:25.159  8912  8912 I ImeTracker: com.thembelanim.rideza:3105ce03: onRequestShow at ORIGIN_CLIENT reason SHOW_SOFT_INPUT fromUser false
+04-19 11:17:25.161  8912  8912 I ImeTracker: com.thembelanim.rideza:3105ce03: onCancelled at PHASE_CLIENT_REPORT_REQUESTED_VISIBLE_TYPES
+04-19 11:17:25.201   774  2273 W PackageConfigPersister: App-specific configuration not found for packageName: com.thembelanim.rideza and userId: 0
+04-19 11:17:25.344  1379  1379 I GoogleInputMethodService: GoogleInputMethodService.onStartInputView():1440 onStartInputView(EditorInfo{EditorInfo{packageName=com.thembelanim.rideza, inputType=21,
+inputTypeString=EmailAddress[], enableLearning=true, autoCorrection=false, autoComplete=true, imeOptions=8000006, privateImeOptions=null, actionName=DONE, actionLabel=null, initialSelStart=0, initialSelEnd=0,
+initialCapsMode=0, label=null, fieldId=106, fieldName=null, extras=Bundle[{android.support.text.emoji.emojiCompat_metadataVersion=11, androidx.core.view.inputmethod.EditorInfoCompat.STYLUS_HANDWRITING_ENABLED=true,
+android.support.text.emoji.emojiCompat_replaceAll=false}], hintText=non-empty, hintLocales=[]}}, false)
+04-19 11:17:25.467  1379  1379 I AndroidIME: AbstractIme.onActivate():96 LatinIme.onActivate() : EditorInfo = EditorInfo{packageName=com.thembelanim.rideza, inputType=21, inputTypeString=EmailAddress[], enableLearning=true,
+autoCorrection=false, autoComplete=true, imeOptions=8000006, privateImeOptions=null, actionName=DONE, actionLabel=null, initialSelStart=0, initialSelEnd=0, initialCapsMode=0, label=null, fieldId=106, fieldName=null,
+extras=Bundle[{android.support.text.emoji.emojiCompat_metadataVersion=11, androidx.core.view.inputmethod.EditorInfoCompat.STYLUS_HANDWRITING_ENABLED=true, android.support.text.emoji.emojiCompat_replaceAll=false}],
+hintText=non-empty, hintLocales=[]}, IncognitoMode = false, DeviceLocked = false
+04-19 11:17:27.440   774   878 W InputDispatcher: Dispatching key to d0827e7 com.thembelanim.rideza/com.thembelanim.rideza.MainActivity even though there are other unprocessed events
+04-19 11:17:27.943   774   878 W InputDispatcher: Dispatching key to d0827e7 com.thembelanim.rideza/com.thembelanim.rideza.MainActivity even though there are other unprocessed events
+04-19 11:17:28.446   774   878 W InputDispatcher: Dispatching key to d0827e7 com.thembelanim.rideza/com.thembelanim.rideza.MainActivity even though there are other unprocessed events
+04-19 11:17:29.332   774  1917 D CoreBackPreview: Window{d0827e7 u0 com.thembelanim.rideza/com.thembelanim.rideza.MainActivity}: Setting back callback
+OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@8a7a5bc, mPriority=0, mIsAnimationCallback=true, mOverrideBehavior=0}
+04-19 11:17:29.898   774   878 I InputDispatcher: d0827e7 com.thembelanim.rideza/com.thembelanim.rideza.MainActivity spent 2961ms processing KeyEvent
+04-19 11:17:29.961   774   878 I InputDispatcher: d0827e7 com.thembelanim.rideza/com.thembelanim.rideza.MainActivity spent 2520ms processing KeyEvent
+04-19 11:17:30.460   774   878 I InputDispatcher: d0827e7 com.thembelanim.rideza/com.thembelanim.rideza.MainActivity spent 2517ms processing KeyEvent
+04-19 11:17:30.765   774   878 W InputDispatcher: Dispatching key to d0827e7 com.thembelanim.rideza/com.thembelanim.rideza.MainActivity even though there are other unprocessed events
+04-19 11:17:30.969   774   878 I InputDispatcher: d0827e7 com.thembelanim.rideza/com.thembelanim.rideza.MainActivity spent 2522ms processing KeyEvent
+04-19 11:17:31.307   774   878 W InputDispatcher: Dispatching key to d0827e7 com.thembelanim.rideza/com.thembelanim.rideza.MainActivity even though there are other unprocessed events
+04-19 11:17:32.671   774   878 W InputDispatcher: Dispatching key to d0827e7 com.thembelanim.rideza/com.thembelanim.rideza.MainActivity even though there are other unprocessed events
+04-19 11:17:33.066  8912  8981 W InteractionJankMonitor: Initializing without READ_DEVICE_CONFIG permission. enabled=false, interval=1, missedFrameThreshold=3, frameTimeThreshold=64, package=com.thembelanim.rideza
+04-19 11:17:33.346  8912  8912 I ImeTracker: com.thembelanim.rideza:7e009374: onShown
+04-19 11:17:37.380  8990  8992 I artd    : GetBestInfo: odex next to the dex file (/data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/oat/x86_64/base.odex) is kOatUpToDate with filter
+'verify' executable 'false'
+04-19 11:17:49.764  8912  8912 I ImeTracker: com.thembelanim.rideza:e97b23df: onRequestShow at ORIGIN_CLIENT reason SHOW_SOFT_INPUT fromUser true
+04-19 11:17:49.764  8912  8912 I ImeTracker: com.thembelanim.rideza:e97b23df: onCancelled at PHASE_CLIENT_APPLY_ANIMATION
+04-19 11:17:49.765   774   888 I ImeTracker: com.thembelanim.rideza:c00e92c7: onRequestShow at ORIGIN_SERVER reason ATTACH_NEW_INPUT fromUser false
+04-19 11:17:49.784  8912  8912 I ImeTracker: com.thembelanim.rideza:a079d47a: onRequestShow at ORIGIN_CLIENT reason SHOW_SOFT_INPUT fromUser false
+04-19 11:17:49.786  8912  8912 I ImeTracker: com.thembelanim.rideza:a079d47a: onCancelled at PHASE_CLIENT_APPLY_ANIMATION
+04-19 11:17:49.793  1379  1379 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1347 onStartInput(EditorInfo{EditorInfo{packageName=com.thembelanim.rideza, inputType=4081,
+inputTypeString=Password[CapSentences], enableLearning=false, autoCorrection=false, autoComplete=true, imeOptions=4000006, privateImeOptions=null, actionName=DONE, actionLabel=null, initialSelStart=0, initialSelEnd=0,
+initialCapsMode=2000, label=null, fieldId=108, fieldName=null, extras=Bundle[mParcelledData.dataSize=404], hintText=non-empty, hintLocales=[]}}, false)
+04-19 11:17:49.794  1379  1379 I GoogleInputMethodService: GoogleInputMethodService.onStartInputView():1440 onStartInputView(EditorInfo{EditorInfo{packageName=com.thembelanim.rideza, inputType=4081,
+inputTypeString=Password[CapSentences], enableLearning=false, autoCorrection=false, autoComplete=true, imeOptions=4000006, privateImeOptions=null, actionName=DONE, actionLabel=null, initialSelStart=0, initialSelEnd=0,
+initialCapsMode=2000, label=null, fieldId=108, fieldName=null, extras=Bundle[{android.support.text.emoji.emojiCompat_metadataVersion=11, androidx.core.view.inputmethod.EditorInfoCompat.STYLUS_HANDWRITING_ENABLED=false,
+android.support.text.emoji.emojiCompat_replaceAll=false}], hintText=non-empty, hintLocales=[]}}, false)
+04-19 11:17:49.800   774  1927 D CoreBackPreview: Window{d0827e7 u0 com.thembelanim.rideza/com.thembelanim.rideza.MainActivity}: Setting back callback
+OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@43157aa, mPriority=0, mIsAnimationCallback=false, mOverrideBehavior=0}
+04-19 11:17:49.800   774  2273 W PackageConfigPersister: App-specific configuration not found for packageName: com.thembelanim.rideza and userId: 0
+04-19 11:17:49.805  1379  1379 I AndroidIME: AbstractIme.onActivate():96 PasswordIme.onActivate() : EditorInfo = EditorInfo{packageName=com.thembelanim.rideza, inputType=4081, inputTypeString=Password[CapSentences],
+enableLearning=false, autoCorrection=false, autoComplete=true, imeOptions=4000006, privateImeOptions=null, actionName=DONE, actionLabel=null, initialSelStart=0, initialSelEnd=0, initialCapsMode=2000, label=null, fieldId=108,
+fieldName=null, extras=Bundle[{android.support.text.emoji.emojiCompat_metadataVersion=11, androidx.core.view.inputmethod.EditorInfoCompat.STYLUS_HANDWRITING_ENABLED=false,
+android.support.text.emoji.emojiCompat_replaceAll=false}], hintText=non-empty, hintLocales=[]}, IncognitoMode = false, DeviceLocked = false
+04-19 11:17:49.889   774  1914 D CoreBackPreview: Window{d0827e7 u0 com.thembelanim.rideza/com.thembelanim.rideza.MainActivity}: Setting back callback
+OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@9344f9b, mPriority=0, mIsAnimationCallback=true, mOverrideBehavior=0}
+04-19 11:17:59.777   774   888 I ImeTracker: com.thembelanim.rideza:c00e92c7: onTimeout at PHASE_WM_NOTIFY_IME_VISIBILITY_CHANGED_FROM_CLIENT
+04-19 11:18:08.018  8912  8912 I ImeTracker: com.thembelanim.rideza:d1a3a8e7: onRequestHide at ORIGIN_CLIENT reason HIDE_SOFT_INPUT fromUser false
+04-19 11:18:08.020   774  1914 D CoreBackPreview: Window{d0827e7 u0 com.thembelanim.rideza/com.thembelanim.rideza.MainActivity}: Setting back callback
+OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@6993202, mPriority=0, mIsAnimationCallback=false, mOverrideBehavior=0}
+04-19 11:18:08.025   774   888 I ImeTracker: com.thembelanim.rideza:695db876: onRequestShow at ORIGIN_SERVER reason ATTACH_NEW_INPUT fromUser false
+04-19 11:18:08.033  1379  1379 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1347 onStartInput(EditorInfo{EditorInfo{packageName=com.thembelanim.rideza, inputType=21, inputTypeString=EmailAddress[],
+enableLearning=true, autoCorrection=false, autoComplete=true, imeOptions=8000006, privateImeOptions=null, actionName=DONE, actionLabel=null, initialSelStart=22, initialSelEnd=22, initialCapsMode=0, label=null, fieldId=106,
+fieldName=null, extras=Bundle[mParcelledData.dataSize=404], hintText=non-empty, hintLocales=[]}}, false)
+04-19 11:18:08.034  1379  1379 I GoogleInputMethodService: GoogleInputMethodService.onStartInputView():1440 onStartInputView(EditorInfo{EditorInfo{packageName=com.thembelanim.rideza, inputType=21,
+inputTypeString=EmailAddress[], enableLearning=true, autoCorrection=false, autoComplete=true, imeOptions=8000006, privateImeOptions=null, actionName=DONE, actionLabel=null, initialSelStart=22, initialSelEnd=22,
+initialCapsMode=0, label=null, fieldId=106, fieldName=null, extras=Bundle[{android.support.text.emoji.emojiCompat_metadataVersion=11, androidx.core.view.inputmethod.EditorInfoCompat.STYLUS_HANDWRITING_ENABLED=true,
+android.support.text.emoji.emojiCompat_replaceAll=false}], hintText=non-empty, hintLocales=[]}}, false)
+04-19 11:18:08.037  1379  1379 I AndroidIME: AbstractIme.onActivate():96 LatinIme.onActivate() : EditorInfo = EditorInfo{packageName=com.thembelanim.rideza, inputType=21, inputTypeString=EmailAddress[], enableLearning=true,
+autoCorrection=false, autoComplete=true, imeOptions=8000006, privateImeOptions=null, actionName=DONE, actionLabel=null, initialSelStart=22, initialSelEnd=22, initialCapsMode=0, label=null, fieldId=106, fieldName=null,
+extras=Bundle[{android.support.text.emoji.emojiCompat_metadataVersion=11, androidx.core.view.inputmethod.EditorInfoCompat.STYLUS_HANDWRITING_ENABLED=true, android.support.text.emoji.emojiCompat_replaceAll=false}],
+hintText=non-empty, hintLocales=[]}, IncognitoMode = false, DeviceLocked = false
+04-19 11:18:08.041   774  1927 W PackageConfigPersister: App-specific configuration not found for packageName: com.thembelanim.rideza and userId: 0
+04-19 11:18:08.077   774  1927 D CoreBackPreview: Window{d0827e7 u0 com.thembelanim.rideza/com.thembelanim.rideza.MainActivity}: Setting back callback
+OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@e6c6c4e, mPriority=0, mIsAnimationCallback=true, mOverrideBehavior=0}
+04-19 11:18:08.080   774  1914 D ImeInsetsSourceProvider: showImePostLayout cancelled, serverVisible: true, frozen: false, mWin is: non-null, isDrawn: true, mGivenInsetsPending: false, imeLayeringTarget: Window{d0827e7 u0
+com.thembelanim.rideza/com.thembelanim.rideza.MainActivity}, controlTarget: Window{d0827e7 u0 com.thembelanim.rideza/com.thembelanim.rideza.MainActivity}
+04-19 11:18:08.080   774  1914 I ImeTracker: com.thembelanim.rideza:c00e92c7: onFinished on previously finished token at PHASE_WM_ABORT_SHOW_IME_POST_LAYOUT with STATUS_CANCEL
+04-19 11:18:08.080   774  1914 I ImeTracker: com.thembelanim.rideza:c00e92c7: onCancelled at PHASE_WM_ABORT_SHOW_IME_POST_LAYOUT
+04-19 11:18:08.246   774   844 D ImeInsetsSourceProvider: showImePostLayout aborted, serverVisible: true, frozen: false, mWin is: non-null, isDrawn: true, mGivenInsetsPending: false, imeLayeringTarget: Window{d0827e7 u0
+com.thembelanim.rideza/com.thembelanim.rideza.MainActivity}, controlTarget: Window{d0827e7 u0 com.thembelanim.rideza/com.thembelanim.rideza.MainActivity}
+04-19 11:18:08.247   774   844 I ImeTracker: com.thembelanim.rideza:695db876: onFailed at PHASE_WM_ABORT_SHOW_IME_POST_LAYOUT
+04-19 11:18:08.260   774  1914 D CoreBackPreview: Window{d0827e7 u0 com.thembelanim.rideza/com.thembelanim.rideza.MainActivity}: Setting back callback
+OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@b4c0305, mPriority=0, mIsAnimationCallback=false, mOverrideBehavior=0}
+04-19 11:18:08.281  8912  8912 I ImeTracker: com.thembelanim.rideza:b8410456: onRequestHide at ORIGIN_CLIENT reason HIDE_SOFT_INPUT fromUser false
+04-19 11:18:08.281  8912  8912 I ImeTracker: com.thembelanim.rideza:b8410456: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+04-19 11:18:10.174  8912  8912 I ImeTracker: com.thembelanim.rideza:7308563: onRequestHide at ORIGIN_CLIENT reason HIDE_SOFT_INPUT_FROM_VIEW fromUser false
+04-19 11:18:10.175  8912  8912 I ImeTracker: com.thembelanim.rideza:7308563: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+04-19 11:18:10.890  1834  6979 I PhenotypeResourceReader: unable to find any Phenotype resource metadata for com.thembelanim.rideza
+04-19 11:18:10.982  8912  8912 D AndroidRuntime: Shutting down VM
+04-19 11:18:10.986  8912  8912 E AndroidRuntime: FATAL EXCEPTION: main
+04-19 11:18:10.986  8912  8912 E AndroidRuntime: Process: com.thembelanim.rideza, PID: 8912
+04-19 11:18:10.986  8912  8912 E AndroidRuntime: java.lang.IllegalStateException: API key not found.  Check that <meta-data android:name="com.google.android.geo.API_KEY" android:value="your API key"/> is in the <application>
+element of AndroidManifest.xml
+04-19 11:18:10.986  8912  8912 E AndroidRuntime:        at com.google.maps.api.android.lib6.common.h.b(:com.google.android.gms.policy_maps_core_dynamite@254515607@254515602032.843324832.843324832:117)
+04-19 11:18:10.986  8912  8912 E AndroidRuntime:        at com.google.android.gms.maps.internal.CreatorImpl.c(:com.google.android.gms.policy_maps_core_dynamite@254515607@254515602032.843324832.843324832:864)
+04-19 11:18:10.986  8912  8912 E AndroidRuntime:        at com.google.android.gms.maps.internal.CreatorImpl.newMapViewDelegate(:com.google.android.gms.policy_maps_core_dynamite@254515607@254515602032.843324832.843324832:23)
+04-19 11:18:10.986  8912  8912 E AndroidRuntime:        at com.google.android.gms.maps.internal.h.bt(:com.google.android.gms.policy_maps_core_dynamite@254515607@254515602032.843324832.843324832:311)
+04-19 11:18:10.986  8912  8912 E AndroidRuntime:        at m140.ayi.onTransact(:com.google.android.gms.policy_maps_core_dynamite@254515607@254515602032.843324832.843324832:21)
+04-19 11:18:10.986  8912  8912 E AndroidRuntime:        at android.os.Binder.transact(Binder.java:1325)
+04-19 11:18:10.986  8912  8912 E AndroidRuntime:        at com.google.android.gms.internal.maps.zza.zzJ(com.google.android.gms:play-services-maps@@18.2.0:2)
+04-19 11:18:10.986  8912  8912 E AndroidRuntime:        at com.google.android.gms.maps.internal.zze.zzg(com.google.android.gms:play-services-maps@@18.2.0:4)
+04-19 11:18:10.986  8912  8912 E AndroidRuntime:        at com.google.android.gms.maps.zzai.zzb(com.google.android.gms:play-services-maps@@18.2.0:4)
+04-19 11:18:10.986  8912  8912 E AndroidRuntime:        at com.google.android.gms.maps.zzai.createDelegate(com.google.android.gms:play-services-maps@@18.2.0:1)
+04-19 11:18:10.986  8912  8912 E AndroidRuntime:        at com.google.android.gms.dynamic.DeferredLifecycleHelper.zaf(com.google.android.gms:play-services-base@@18.2.0:6)
+04-19 11:18:10.986  8912  8912 E AndroidRuntime:        at com.google.android.gms.dynamic.DeferredLifecycleHelper.onCreate(com.google.android.gms:play-services-base@@18.2.0:1)
+04-19 11:18:10.986  8912  8912 E AndroidRuntime:        at com.google.android.gms.maps.MapView.onCreate(com.google.android.gms:play-services-maps@@18.2.0:4)
+04-19 11:18:10.986  8912  8912 E AndroidRuntime:        at com.rnmaps.maps.MapView.<init>(MapView.java:180)
+04-19 11:18:10.986  8912  8912 E AndroidRuntime:        at com.rnmaps.maps.MapManager.createViewInstance(MapManager.java:78)
+04-19 11:18:10.986  8912  8912 E AndroidRuntime:        at com.rnmaps.maps.MapManager.createViewInstance(MapManager.java:33)
+04-19 11:18:10.986  8912  8912 E AndroidRuntime:        at com.facebook.react.uimanager.ViewManager.createViewInstance(ViewManager.java:216)
+04-19 11:18:10.986  8912  8912 E AndroidRuntime:        at com.rnmaps.maps.MapManager.createViewInstance(MapManager.java:108)
+04-19 11:18:10.986  8912  8912 E AndroidRuntime:        at com.rnmaps.maps.MapManager.createViewInstance(MapManager.java:33)
+04-19 11:18:10.986  8912  8912 E AndroidRuntime:        at com.facebook.react.uimanager.ViewManager.createView(ViewManager.java:148)
+04-19 11:18:10.986  8912  8912 E AndroidRuntime:        at com.facebook.react.fabric.mounting.SurfaceMountingManager.createViewUnsafe(SurfaceMountingManager.java:673)
+04-19 11:18:10.986  8912  8912 E AndroidRuntime:        at com.facebook.react.fabric.mounting.SurfaceMountingManager.preallocateView(SurfaceMountingManager.java:1083)
+04-19 11:18:10.986  8912  8912 E AndroidRuntime:        at com.facebook.react.fabric.mounting.mountitems.PreAllocateViewMountItem.execute(PreAllocateViewMountItem.kt:38)
+04-19 11:18:10.986  8912  8912 E AndroidRuntime:        at com.facebook.react.fabric.mounting.MountItemDispatcher.executeOrEnqueue(MountItemDispatcher.kt:312)
+04-19 11:18:10.986  8912  8912 E AndroidRuntime:        at com.facebook.react.fabric.mounting.MountItemDispatcher.dispatchMountItems(MountItemDispatcher.kt:205)
+04-19 11:18:10.986  8912  8912 E AndroidRuntime:        at com.facebook.react.fabric.mounting.MountItemDispatcher.tryDispatchMountItems(MountItemDispatcher.kt:88)
+04-19 11:18:10.986  8912  8912 E AndroidRuntime:        at com.facebook.react.fabric.FabricUIManager$DispatchUIFrameCallback.doFrameGuarded(FabricUIManager.java:1484)
+04-19 11:18:10.986  8912  8912 E AndroidRuntime:        at com.facebook.react.uimanager.GuardedFrameCallback.doFrame(GuardedFrameCallback.kt:25)
+04-19 11:18:10.986  8912  8912 E AndroidRuntime:        at com.facebook.react.modules.core.ReactChoreographer.frameCallback$lambda$1(ReactChoreographer.kt:59)
+04-19 11:18:10.986  8912  8912 E AndroidRuntime:        at com.facebook.react.modules.core.ReactChoreographer.$r8$lambda$nSkFhrr5T7rop_XKwzlLov4NLLw(Unknown Source:0)
+04-19 11:18:10.986  8912  8912 E AndroidRuntime:        at com.facebook.react.modules.core.ReactChoreographer$$ExternalSyntheticLambda0.doFrame(D8$$SyntheticClass:0)
+04-19 11:18:10.986  8912  8912 E AndroidRuntime:        at android.view.Choreographer$CallbackRecord.run(Choreographer.java:1601)
+04-19 11:18:10.986  8912  8912 E AndroidRuntime:        at android.view.Choreographer$CallbackRecord.run(Choreographer.java:1612)
+04-19 11:18:10.986  8912  8912 E AndroidRuntime:        at android.view.Choreographer.doCallbacks(Choreographer.java:1208)
+04-19 11:18:10.986  8912  8912 E AndroidRuntime:        at android.view.Choreographer.doFrame(Choreographer.java:1133)
+04-19 11:18:10.986  8912  8912 E AndroidRuntime:        at android.view.Choreographer$FrameDisplayEventReceiver.run(Choreographer.java:1586)
+04-19 11:18:10.986  8912  8912 E AndroidRuntime:        at android.os.Handler.handleCallback(Handler.java:1070)
+04-19 11:18:10.986  8912  8912 E AndroidRuntime:        at android.os.Handler.dispatchMessage(Handler.java:125)
+04-19 11:18:10.986  8912  8912 E AndroidRuntime:        at android.os.Looper.dispatchMessage(Looper.java:333)
+04-19 11:18:10.986  8912  8912 E AndroidRuntime:        at android.os.Looper.loopOnce(Looper.java:263)
+04-19 11:18:10.986  8912  8912 E AndroidRuntime:        at android.os.Looper.loop(Looper.java:367)
+04-19 11:18:10.986  8912  8912 E AndroidRuntime:        at android.app.ActivityThread.main(ActivityThread.java:9227)
+04-19 11:18:10.986  8912  8912 E AndroidRuntime:        at java.lang.reflect.Method.invoke(Native Method)
+04-19 11:18:10.986  8912  8912 E AndroidRuntime:        at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:566)
+04-19 11:18:10.986  8912  8912 E AndroidRuntime:        at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:929)
+04-19 11:18:11.017  1834  6979 I PhenotypeResourceReader: unable to find any Phenotype resource metadata for com.thembelanim.rideza
+04-19 11:18:11.032  1834  6979 I PhenotypeResourceReader: unable to find any Phenotype resource metadata for com.thembelanim.rideza
+04-19 11:18:11.038  1834  7087 W PhBaseOp: euhp: 29542: Stale snapshot for com.google.android.gms.maps#com.thembelanim.rideza(new configuration available)
+04-19 11:18:11.042  1834  7087 W AsyncOperation: OperationException[Status{statusCode=Stale snapshot for com.google.android.gms.maps#com.thembelanim.rideza(new configuration available), resolution=null}]
+04-19 11:18:11.080   774  1926 W ActivityTaskManager:   Force finishing activity com.thembelanim.rideza/.MainActivity
+04-19 11:18:11.106  1017  1083 V WindowManagerShell: Transition requested (#12): android.os.BinderProxy@83f666b TransitionRequestInfo { type = CLOSE, triggerTask = TaskInfo{userId=0 taskId=169 effectiveUid=10219 displayId=0
+isRunning=true baseIntent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.thembelanim.rideza/.MainActivity }
+baseActivity=ComponentInfo{com.thembelanim.rideza/com.thembelanim.rideza.MainActivity} topActivity=ComponentInfo{com.thembelanim.rideza/com.thembelanim.rideza.MainActivity} origActivity=null
+realActivity=ComponentInfo{com.thembelanim.rideza/com.thembelanim.rideza.MainActivity} numActivities=1 lastActiveTime=58736209 supportsMultiWindow=true resizeMode=1 isResizeable=true minWidth=-1 minHeight=-1
+defaultMinSize=220 token=WCT{android.os.BinderProxy@59fa6c7} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=Rect(0, 0
+- 0, 0) topActivityInfo=ActivityInfo{5f565c8 com.thembelanim.rideza.MainActivity} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=true isVisible=true isVisibleRequested=true
+isTopActivityNoDisplay=false isSleeping=false locusId=null displayAreaFeatureId=1 isTopActivityTransparent=false isActivityStackTransparent=false lastNonFullscreenBounds=null capturedLink=null capturedLinkTimestamp=0
+requestedVisibleTypes=503 topActivityRequestOpenInBrowserEducationTimestamp=0 appCompatTaskInfo=AppCompatTaskInfo { topActivityInSizeCompat=false isLeafTask= true eligibleForLetterboxEducation= false
+isLetterboxEducationEnabled= true isLetterboxDoubleTapEnabled= false eligibleForUserAspectRatioButton= false topActivityBoundsLetterboxed= false isFromLetterboxDoubleTap= false topActivityLetterboxVerticalPosition= -1
+topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 topActivityAppBounds=Rect(0, 0 - 1080, 2400) isUserFullscreenOverrideEnabled=false isSystemFullscreenOverrideEnabled=false
+hasMinAspectRatioOverride=false topActivityLetterboxBounds=null cameraCompatTaskInfo=CameraCompatTaskInfo { cameraCompatMode=inactiveundefined} topNonResizableActivityAspectRatio=-1.0} topActivityMainWindowFrame=null
+isAppBubble=false}, pipChange = null, remoteTransition = null, displayChange = null, requestedLocation = null, userChange = null, flags = 16, debugId = 12 }
+04-19 11:18:11.255   774  2273 I WindowManager: WIN DEATH: Window{d0827e7 u0 com.thembelanim.rideza/com.thembelanim.rideza.MainActivity}
+04-19 11:18:11.256   774   844 I ActivityManager: Process com.thembelanim.rideza (pid 8912) has died: fg  TOP
+04-19 11:18:11.257   774  1914 I ImeTracker: com.thembelanim.rideza:ac9ec7bd: onRequestHide at ORIGIN_SERVER reason HIDE_REMOVE_CLIENT fromUser false
+04-19 11:18:11.258   774  1914 I ImeTracker: com.thembelanim.rideza:ac9ec7bd: onCancelled at PHASE_SERVER_SHOULD_HIDE
+04-19 11:18:11.490   774   796 V WindowManager: Sent Transition (#12) createdAt=04-19 11:18:11.081 via request=TransitionRequestInfo { type = CLOSE, triggerTask = TaskInfo{userId=0 taskId=169 effectiveUid=10219 displayId=0
+isRunning=true baseIntent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.thembelanim.rideza/.MainActivity }
+baseActivity=ComponentInfo{com.thembelanim.rideza/com.thembelanim.rideza.MainActivity} topActivity=ComponentInfo{com.thembelanim.rideza/com.thembelanim.rideza.MainActivity} origActivity=null
+realActivity=ComponentInfo{com.thembelanim.rideza/com.thembelanim.rideza.MainActivity} numActivities=1 lastActiveTime=58736209 supportsMultiWindow=true resizeMode=1 isResizeable=true minWidth=-1 minHeight=-1
+defaultMinSize=220 token=WCT{RemoteToken{409f95d Task{e8174be #169 type=standard A=10219:com.thembelanim.rideza}}} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1
+lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=Rect(0, 0 - 0, 0) topActivityInfo=ActivityInfo{d27b2d2 com.thembelanim.rideza.MainActivity} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=true
+isVisible=true isVisibleRequested=true isTopActivityNoDisplay=false isSleeping=false locusId=null displayAreaFeatureId=1 isTopActivityTransparent=false isActivityStackTransparent=false lastNonFullscreenBounds=null
+capturedLink=null capturedLinkTimestamp=0 requestedVisibleTypes=503 topActivityRequestOpenInBrowserEducationTimestamp=0 appCompatTaskInfo=AppCompatTaskInfo { topActivityInSizeCompat=false isLeafTask= true
+eligibleForLetterboxEducation= false isLetterboxEducationEnabled= true isLetterboxDoubleTapEnabled= false eligibleForUserAspectRatioButton= false topActivityBoundsLetterboxed= false isFromLetterboxDoubleTap= false
+topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 topActivityAppBounds=Rect(0, 0 - 1080, 2400) isUserFullscreenOverrideEnabled=false
+isSystemFullscreenOverrideEnabled=false hasMinAspectRatioOverride=false topActivityLetterboxBounds=null cameraCompatTaskInfo=CameraCompatTaskInfo { cameraCompatMode=inactiveundefined} topNonResizableActivityAspectRatio=-1.0}
+topActivityMainWindowFrame=null isAppBubble=false}, pipChange = null, remoteTransition = null, displayChange = null, requestedLocation = null, userChange = null, flags = 16, debugId = 12 }
+04-19 11:18:11.490   774   796 V WindowManager:         {WCT{RemoteToken{409f95d Task{e8174be #169 type=standard A=10219:com.thembelanim.rideza}}} m=CLOSE f=NONE leash=Surface(name=Task=169#229)/@0x6051a07 sb=Rect(0, 0 -
+1080, 2400) eb=Rect(0, 0 - 1080, 2400) epz=Point(1080, 2400) d=0 taskParent=-1 winMode=1 userId=0},
+04-19 11:18:11.689   774   800 W ActivityTaskManager: Activity top resumed state loss timeout for ActivityRecord{218308473 u0 com.thembelanim.rideza/.MainActivity t169 f} isExiting}
+04-19 11:18:12.596   774  2281 W WindowManager: Exception thrown during dispatchAppVisibility Window{d0827e7 u0 com.thembelanim.rideza/com.thembelanim.rideza.MainActivity EXITING}
+04-19 11:18:18.030   774   888 I ImeTracker: com.thembelanim.rideza:d1a3a8e7: onTimeout at PHASE_CLIENT_ANIMATION_CANCEL
+04-19 11:18:21.938   774   844 V WindowManager: DesktopModeLaunchParamsModifier: phase= 0 task=Task{e8174be #169 type=standard A=10219:com.thembelanim.rideza} activity=null display-from-option=0 display-id=0
+task-display-area-windowing-mode=1 suggested-display-area=DefaultTaskDisplayArea@118032276 not entering desktop mode, skipping
+04-19 11:18:21.938   774   844 V WindowManager: TaskLaunchParamsModifier:phase=0 task=Task{e8174be #169 type=standard A=10219:com.thembelanim.rideza} activity=null display-from-option=0 display-id=0
+task-display-area-windowing-mode=1 suggested-display-area=DefaultTaskDisplayArea@118032276
+04-19 11:18:21.942   774   844 V WindowManager: DesktopModeLaunchParamsModifier: phase= 0 task=Task{e8174be #169 type=standard A=10219:com.thembelanim.rideza} activity=ActivityRecord{35445455 u0
+com.thembelanim.rideza/.MainActivity display-from-option=0 display-id=0 task-display-area-windowing-mode=1 suggested-display-area=DefaultTaskDisplayArea@118032276 not entering desktop mode, skipping
+04-19 11:18:21.942   774   844 V WindowManager: TaskLaunchParamsModifier:phase=0 task=Task{e8174be #169 type=standard A=10219:com.thembelanim.rideza} activity=ActivityRecord{35445455 u0 com.thembelanim.rideza/.MainActivity
+t-1} display-from-option=0 display-id=0 task-display-area-windowing-mode=1 suggested-display-area=DefaultTaskDisplayArea@118032276
+04-19 11:18:21.943   774   844 V WindowManager: DesktopModeLaunchParamsModifier: phase= 3 task=Task{e8174be #169 type=standard A=10219:com.thembelanim.rideza} activity=ActivityRecord{35445455 u0
+com.thembelanim.rideza/.MainActivity t-1} display-from-option=0 display-id=0 task-display-area-windowing-mode=1 suggested-display-area=DefaultTaskDisplayArea@118032276 not entering desktop mode, skipping
+04-19 11:18:21.944   774   844 V WindowManager: TaskLaunchParamsModifier:phase=3 task=Task{e8174be #169 type=standard A=10219:com.thembelanim.rideza} activity=ActivityRecord{35445455 u0 com.thembelanim.rideza/.MainActivity
+t-1} display-from-option=0 display-id=0 task-display-area-windowing-mode=1 suggested-display-area=DefaultTaskDisplayArea@118032276 non-freeform-task-display-area display-area=DefaultTaskDisplayArea@118032276
+skip-bounds-fullscreen
+04-19 11:18:21.946   774   844 V WindowManager: DesktopModeLaunchParamsModifier: phase= 3 task=Task{e8174be #169 type=standard A=10219:com.thembelanim.rideza} activity=ActivityRecord{35445455 u0
+com.thembelanim.rideza/.MainActivity t-1} display-from-option=0 display-id=0 task-display-area-windowing-mode=1 suggested-display-area=DefaultTaskDisplayArea@118032276 not entering desktop mode, skipping
+04-19 11:18:21.946   774   844 V WindowManager: TaskLaunchParamsModifier:phase=3 task=Task{e8174be #169 type=standard A=10219:com.thembelanim.rideza} activity=ActivityRecord{35445455 u0 com.thembelanim.rideza/.MainActivity
+t-1} display-from-option=0 display-id=0 task-display-area-windowing-mode=1 suggested-display-area=DefaultTaskDisplayArea@118032276 non-freeform-task-display-area display-area=DefaultTaskDisplayArea@118032276
+skip-bounds-fullscreen
+04-19 11:18:21.955   774   844 I ActivityTaskManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10300000 cmp=com.thembelanim.rideza/.MainActivity} with LAUNCH_SINGLE_TASK from uid
+2000 (com.android.shell) (realCallingUid=10182) (BAL_ALLOW_PERMISSION) result code=0
+04-19 11:18:21.960  1017  1083 V WindowManagerShell: Transition requested (#13): android.os.BinderProxy@d6ffc36 TransitionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=169 effectiveUid=10219 displayId=0
+isRunning=true baseIntent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10300000 cmp=com.thembelanim.rideza/.MainActivity }
+baseActivity=ComponentInfo{com.thembelanim.rideza/com.thembelanim.rideza.MainActivity} topActivity=ComponentInfo{com.thembelanim.rideza/com.thembelanim.rideza.MainActivity} origActivity=null
+realActivity=ComponentInfo{com.thembelanim.rideza/com.thembelanim.rideza.MainActivity} numActivities=1 lastActiveTime=58815390 supportsMultiWindow=true resizeMode=1 isResizeable=true minWidth=-1 minHeight=-1
+defaultMinSize=220 token=WCT{android.os.BinderProxy@59fa6c7} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=Rect(0, 0
+- 0, 0) topActivityInfo=ActivityInfo{f4b0737 com.thembelanim.rideza.MainActivity} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=false isVisible=false isVisibleRequested=false
+isTopActivityNoDisplay=false isSleeping=false locusId=null displayAreaFeatureId=1 isTopActivityTransparent=false isActivityStackTransparent=false lastNonFullscreenBounds=null capturedLink=null capturedLinkTimestamp=0
+requestedVisibleTypes=503 topActivityRequestOpenInBrowserEducationTimestamp=0 appCompatTaskInfo=AppCompatTaskInfo { topActivityInSizeCompat=false isLeafTask= true eligibleForLetterboxEducation= false
+isLetterboxEducationEnabled= true isLetterboxDoubleTapEnabled= false eligibleForUserAspectRatioButton= false topActivityBoundsLetterboxed= false isFromLetterboxDoubleTap= false topActivityLetterboxVerticalPosition= -1
+topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 topActivityAppBounds=Rect(0, 0 - 1080, 2400) isUserFullscreenOverrideEnabled=false isSystemFullscreenOverrideEnabled=false
+hasMinAspectRatioOverride=false topActivityLetterboxBounds=null cameraCompatTaskInfo=CameraCompatTaskInfo { cameraCompatMode=inactiveundefined} topNonResizableActivityAspectRatio=-1.0} topActivityMainWindowFrame=null
+isAppBubble=false}, pipChange = null, remoteTransition = RemoteTransition { remoteTransition = android.window.IRemoteTransition$Stub$Proxy@aaf04a4, appThread = android.app.IApplicationThread$Stub$Proxy@ac7220d, debugName =
+QuickstepLaunch }, displayChange = null, requestedLocation = null, userChange = null, flags = 0, debugId = 13 }
+04-19 11:18:21.984   774  1269 D CoreBackPreview: Window{d43f248 u0 Splash Screen com.thembelanim.rideza}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@b2354c7,
+mPriority=0, mIsAnimationCallback=false, mOverrideBehavior=0}
+04-19 11:18:22.100   774   808 I ActivityManager: Start proc 9039:com.thembelanim.rideza/u0a219 for next-top-activity {com.thembelanim.rideza/com.thembelanim.rideza.MainActivity}
+04-19 11:18:22.143  9039  9039 I Zygote  : Process 9039 created for com.thembelanim.rideza
+04-19 11:18:22.209   774   796 V WindowManager: Sent Transition (#13) createdAt=04-19 11:18:21.940 via request=TransitionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=169 effectiveUid=10219 displayId=0
+isRunning=true baseIntent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10300000 cmp=com.thembelanim.rideza/.MainActivity }
+baseActivity=ComponentInfo{com.thembelanim.rideza/com.thembelanim.rideza.MainActivity} topActivity=ComponentInfo{com.thembelanim.rideza/com.thembelanim.rideza.MainActivity} origActivity=null
+realActivity=ComponentInfo{com.thembelanim.rideza/com.thembelanim.rideza.MainActivity} numActivities=1 lastActiveTime=58815390 supportsMultiWindow=true resizeMode=1 isResizeable=true minWidth=-1 minHeight=-1
+defaultMinSize=220 token=WCT{RemoteToken{409f95d Task{e8174be #169 type=standard A=10219:com.thembelanim.rideza}}} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1
+lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=Rect(0, 0 - 0, 0) topActivityInfo=ActivityInfo{314c260 com.thembelanim.rideza.MainActivity} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=false
+isVisible=false isVisibleRequested=false isTopActivityNoDisplay=false isSleeping=false locusId=null displayAreaFeatureId=1 isTopActivityTransparent=false isActivityStackTransparent=false lastNonFullscreenBounds=null
+capturedLink=null capturedLinkTimestamp=0 requestedVisibleTypes=503 topActivityRequestOpenInBrowserEducationTimestamp=0 appCompatTaskInfo=AppCompatTaskInfo { topActivityInSizeCompat=false isLeafTask= true
+eligibleForLetterboxEducation= false isLetterboxEducationEnabled= true isLetterboxDoubleTapEnabled= false eligibleForUserAspectRatioButton= false topActivityBoundsLetterboxed= false isFromLetterboxDoubleTap= false
+topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 topActivityAppBounds=Rect(0, 0 - 1080, 2400) isUserFullscreenOverrideEnabled=false
+isSystemFullscreenOverrideEnabled=false hasMinAspectRatioOverride=false topActivityLetterboxBounds=null cameraCompatTaskInfo=CameraCompatTaskInfo { cameraCompatMode=inactiveundefined} topNonResizableActivityAspectRatio=-1.0}
+topActivityMainWindowFrame=null isAppBubble=false}, pipChange = null, remoteTransition = RemoteTransition { remoteTransition = android.window.IRemoteTransition$Stub$Proxy@9503319, appThread =
+android.app.IApplicationThread$Stub$Proxy@50d8fde, debugName = QuickstepLaunch }, displayChange = null, requestedLocation = null, userChange = null, flags = 0, debugId = 13 }
+04-19 11:18:22.212   774   796 V WindowManager:         {WCT{RemoteToken{409f95d Task{e8174be #169 type=standard A=10219:com.thembelanim.rideza}}} m=TO_FRONT f=MOVE_TO_TOP leash=Surface(name=Task=169#258)/@0xe6c3c92
+sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) epz=Point(1080, 2400) d=0 taskParent=-1 winMode=1 userId=0},
+04-19 11:18:22.478  9039  9039 D nativeloader: Configuring clns-9 for other apk /data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/base.apk. target_sdk_version=36, uses_libraries=,
+library_path=/data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/lib/x86_64:/data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/base.apk!/lib/x86_64,
+permitted_path=/data:/mnt/expand:/data/user/0/com.thembelanim.rideza
+04-19 11:18:22.496  9039  9039 V GraphicsEnvironment: com.thembelanim.rideza is not listed in per-application setting
+04-19 11:18:22.496  9039  9039 V GraphicsEnvironment: com.thembelanim.rideza is not listed in ANGLE allowlist or settings, returning default
+04-19 11:18:22.547  9039  9039 W SoLoader: Recording new base apk path: /data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/base.apk
+04-19 11:18:22.547  9039  9039 I SoLoader: Preparing SO source: DirectApkSoSource[root = [/data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/base.apk!/lib/x86_64]]
+04-19 11:18:22.566  9039  9039 I SoLoader: Preparing SO source: ApplicationSoSource[DirectorySoSource[root = /data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/lib/x86_64 flags = 0]]
+04-19 11:18:22.717  9039  9039 D nativeloader: Load /data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/base.apk!/lib/x86_64/libc++_shared.so using class loader ns clns-9
+(caller=/data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/base.apk!classes2.dex): ok
+04-19 11:18:22.929  9039  9039 D nativeloader: Load /data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/base.apk!/lib/x86_64/libjsi.so using class loader ns clns-9
+(caller=/data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/base.apk!classes2.dex): ok
+04-19 11:18:23.023  9039  9039 D nativeloader: Load /data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/base.apk!/lib/x86_64/libfbjni.so using class loader ns clns-9
+(caller=/data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/base.apk!classes2.dex): ok
+04-19 11:18:23.074  9039  9039 D nativeloader: Load /data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/base.apk!/lib/x86_64/libreactnative.so using class loader ns clns-9
+(caller=/data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/base.apk!classes2.dex): ok
+04-19 11:18:23.111  9039  9039 D nativeloader: Load /data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/base.apk!/lib/x86_64/libreact_codegen_rnscreens.so using class loader ns clns-9
+(caller=/data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/base.apk!classes2.dex): ok
+04-19 11:18:23.132  9039  9039 D nativeloader: Load /data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/base.apk!/lib/x86_64/libreact_codegen_safeareacontext.so using class loader ns clns-9
+(caller=/data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/base.apk!classes2.dex): ok
+04-19 11:18:23.174  9039  9039 D nativeloader: Load /data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/base.apk!/lib/x86_64/libappmodules.so using class loader ns clns-9
+(caller=/data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/base.apk!classes2.dex): ok
+04-19 11:18:23.745  9039  9059 D nativeloader: Load /data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/base.apk!/lib/x86_64/libhermes.so using class loader ns clns-9
+(caller=/data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/base.apk!classes2.dex): ok
+04-19 11:18:23.754  9039  9059 D nativeloader: Load /data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/base.apk!/lib/x86_64/libhermestooling.so using class loader ns clns-9
+(caller=/data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/base.apk!classes2.dex): ok
+04-19 11:18:23.904   774  2281 D CoreBackPreview: Window{9a4bf66 u0 com.thembelanim.rideza/com.thembelanim.rideza.MainActivity}: Setting back callback
+OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@e1df354, mPriority=0, mIsAnimationCallback=false, mOverrideBehavior=0}
+04-19 11:18:24.545  9039  9060 D nativeloader: Load /data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/base.apk!/lib/x86_64/libexpo-modules-core.so using class loader ns clns-9
+(caller=/data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/base.apk!classes2.dex): ok
+04-19 11:18:27.756  9039  9060 D nativeloader: Load /data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/base.apk!/lib/x86_64/librnscreens.so using class loader ns clns-9
+(caller=/data/app/~~R1aG9FFRiHIJj7eqR1yCIg==/com.thembelanim.rideza-Ciouh0T0sqrjMRxSmJ8S5Q==/base.apk!classes2.dex): ok
+04-19 11:18:27.759  9039  9060 I ReactNativeJS: Running "main"
+04-19 11:18:28.309  9039  9075 D ProfileInstaller: Skipping profile installation for com.thembelanim.rideza
+04-19 11:18:29.644   774   796 I ActivityTaskManager: Displayed com.thembelanim.rideza/.MainActivity for user 0: +7s704ms
+04-19 11:18:30.016   774   888 I ImeTracker: com.thembelanim.rideza:5d7a7f7: onRequestHide at ORIGIN_SERVER reason HIDE_UNSPECIFIED_WINDOW fromUser false
+04-19 11:18:30.022  9039  9039 I ImeTracker: com.thembelanim.rideza:5d7a7f7: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+04-19 11:18:30.069  1379  1379 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1347 onStartInput(EditorInfo{EditorInfo{packageName=com.thembelanim.rideza, inputType=0, inputTypeString=NULL,
+enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0,
+fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+04-19 11:18:30.105   774  1269 W PackageConfigPersister: App-specific configuration not found for packageName: com.thembelanim.rideza and userId: 0
+04-19 11:19:05.928  9039  9039 I ImeTracker: com.thembelanim.rideza:c129cfb7: onRequestShow at ORIGIN_CLIENT reason SHOW_SOFT_INPUT fromUser true
+04-19 11:19:05.933  1379  1379 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1347 onStartInput(EditorInfo{EditorInfo{packageName=com.thembelanim.rideza, inputType=21, inputTypeString=EmailAddress[],
+enableLearning=true, autoCorrection=false, autoComplete=true, imeOptions=8000006, privateImeOptions=null, actionName=DONE, actionLabel=null, initialSelStart=0, initialSelEnd=0, initialCapsMode=0, label=null, fieldId=106,
+fieldName=null, extras=Bundle[mParcelledData.dataSize=404], hintText=non-empty, hintLocales=[]}}, false)
+04-19 11:19:05.939   774  1539 W PackageConfigPersister: App-specific configuration not found for packageName: com.thembelanim.rideza and userId: 0
+04-19 11:19:05.940  1379  1379 I GoogleInputMethodService: GoogleInputMethodService.onStartInputView():1440 onStartInputView(EditorInfo{EditorInfo{packageName=com.thembelanim.rideza, inputType=21,
+inputTypeString=EmailAddress[], enableLearning=true, autoCorrection=false, autoComplete=true, imeOptions=8000006, privateImeOptions=null, actionName=DONE, actionLabel=null, initialSelStart=0, initialSelEnd=0,
+initialCapsMode=0, label=null, fieldId=106, fieldName=null, extras=Bundle[{android.support.text.emoji.emojiCompat_metadataVersion=11, androidx.core.view.inputmethod.EditorInfoCompat.STYLUS_HANDWRITING_ENABLED=true,
+android.support.text.emoji.emojiCompat_replaceAll=false}], hintText=non-empty, hintLocales=[]}}, false)
+04-19 11:19:05.945  1379  1379 I AndroidIME: AbstractIme.onActivate():96 LatinIme.onActivate() : EditorInfo = EditorInfo{packageName=com.thembelanim.rideza, inputType=21, inputTypeString=EmailAddress[], enableLearning=true,
+autoCorrection=false, autoComplete=true, imeOptions=8000006, privateImeOptions=null, actionName=DONE, actionLabel=null, initialSelStart=0, initialSelEnd=0, initialCapsMode=0, label=null, fieldId=106, fieldName=null,
+extras=Bundle[{android.support.text.emoji.emojiCompat_metadataVersion=11, androidx.core.view.inputmethod.EditorInfoCompat.STYLUS_HANDWRITING_ENABLED=true, android.support.text.emoji.emojiCompat_replaceAll=false}],
+hintText=non-empty, hintLocales=[]}, IncognitoMode = false, DeviceLocked = false
+04-19 11:19:05.949  9039  9039 I ImeTracker: com.thembelanim.rideza:42f9d959: onRequestShow at ORIGIN_CLIENT reason SHOW_SOFT_INPUT fromUser false
+04-19 11:19:05.949  9039  9039 I ImeTracker: com.thembelanim.rideza:42f9d959: onCancelled at PHASE_CLIENT_REPORT_REQUESTED_VISIBLE_TYPES
+04-19 11:19:05.997   774   990 D CoreBackPreview: Window{9a4bf66 u0 com.thembelanim.rideza/com.thembelanim.rideza.MainActivity}: Setting back callback
+OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@4a7a181, mPriority=0, mIsAnimationCallback=true, mOverrideBehavior=0}
+04-19 11:19:06.136  9039  9088 W InteractionJankMonitor: Initializing without READ_DEVICE_CONFIG permission. enabled=false, interval=1, missedFrameThreshold=3, frameTimeThreshold=64, package=com.thembelanim.rideza
+04-19 11:19:06.337  9039  9039 I ImeTracker: com.thembelanim.rideza:c129cfb7: onShown
+04-19 11:19:28.512   774   888 I ImeTracker: com.thembelanim.rideza:a1996542: onRequestShow at ORIGIN_SERVER reason ATTACH_NEW_INPUT fromUser false
+04-19 11:19:28.531   774  2272 D CoreBackPreview: Window{9a4bf66 u0 com.thembelanim.rideza/com.thembelanim.rideza.MainActivity}: Setting back callback
+OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@f2bac47, mPriority=0, mIsAnimationCallback=false, mOverrideBehavior=0}
+04-19 11:19:28.532  1379  1379 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1347 onStartInput(EditorInfo{EditorInfo{packageName=com.thembelanim.rideza, inputType=4081,
+inputTypeString=Password[CapSentences], enableLearning=false, autoCorrection=false, autoComplete=true, imeOptions=4000006, privateImeOptions=null, actionName=DONE, actionLabel=null, initialSelStart=0, initialSelEnd=0,
+initialCapsMode=2000, label=null, fieldId=108, fieldName=null, extras=Bundle[mParcelledData.dataSize=404], hintText=non-empty, hintLocales=[]}}, false)
+04-19 11:19:28.538   774  2273 W PackageConfigPersister: App-specific configuration not found for packageName: com.thembelanim.rideza and userId: 0
+04-19 11:19:28.539  1379  1379 I GoogleInputMethodService: GoogleInputMethodService.onStartInputView():1440 onStartInputView(EditorInfo{EditorInfo{packageName=com.thembelanim.rideza, inputType=4081,
+inputTypeString=Password[CapSentences], enableLearning=false, autoCorrection=false, autoComplete=true, imeOptions=4000006, privateImeOptions=null, actionName=DONE, actionLabel=null, initialSelStart=0, initialSelEnd=0,
+initialCapsMode=2000, label=null, fieldId=108, fieldName=null, extras=Bundle[{android.support.text.emoji.emojiCompat_metadataVersion=11, androidx.core.view.inputmethod.EditorInfoCompat.STYLUS_HANDWRITING_ENABLED=false,
+android.support.text.emoji.emojiCompat_replaceAll=false}], hintText=non-empty, hintLocales=[]}}, false)
+04-19 11:19:28.546  1379  1379 I AndroidIME: AbstractIme.onActivate():96 PasswordIme.onActivate() : EditorInfo = EditorInfo{packageName=com.thembelanim.rideza, inputType=4081, inputTypeString=Password[CapSentences],
+enableLearning=false, autoCorrection=false, autoComplete=true, imeOptions=4000006, privateImeOptions=null, actionName=DONE, actionLabel=null, initialSelStart=0, initialSelEnd=0, initialCapsMode=2000, label=null, fieldId=108,
+fieldName=null, extras=Bundle[{android.support.text.emoji.emojiCompat_metadataVersion=11, androidx.core.view.inputmethod.EditorInfoCompat.STYLUS_HANDWRITING_ENABLED=false,
+android.support.text.emoji.emojiCompat_replaceAll=false}], hintText=non-empty, hintLocales=[]}, IncognitoMode = false, DeviceLocked = false
+04-19 11:19:28.635   774  2272 D CoreBackPreview: Window{9a4bf66 u0 com.thembelanim.rideza/com.thembelanim.rideza.MainActivity}: Setting back callback
+OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@e6cc5e3, mPriority=0, mIsAnimationCallback=true, mOverrideBehavior=0}
+04-19 11:19:37.688  1379  1379 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1347 onStartInput(EditorInfo{EditorInfo{packageName=com.thembelanim.rideza, inputType=4081,
+inputTypeString=Password[CapSentences], enableLearning=false, autoCorrection=false, autoComplete=true, imeOptions=4000006, privateImeOptions=null, actionName=DONE, actionLabel=null, initialSelStart=0, initialSelEnd=0,
+initialCapsMode=3000, label=null, fieldId=108, fieldName=null, extras=Bundle[mParcelledData.dataSize=404], hintText=non-empty, hintLocales=[]}}, true)
+04-19 11:19:37.694   774  2205 W PackageConfigPersister: App-specific configuration not found for packageName: com.thembelanim.rideza and userId: 0
+04-19 11:19:37.698  1379  1379 I GoogleInputMethodService: GoogleInputMethodService.onStartInputView():1440 onStartInputView(EditorInfo{EditorInfo{packageName=com.thembelanim.rideza, inputType=4081,
+inputTypeString=Password[CapSentences], enableLearning=false, autoCorrection=false, autoComplete=true, imeOptions=4000006, privateImeOptions=null, actionName=DONE, actionLabel=null, initialSelStart=0, initialSelEnd=0,
+initialCapsMode=3000, label=null, fieldId=108, fieldName=null, extras=Bundle[{android.support.text.emoji.emojiCompat_metadataVersion=11, androidx.core.view.inputmethod.EditorInfoCompat.STYLUS_HANDWRITING_ENABLED=false,
+android.support.text.emoji.emojiCompat_replaceAll=false}], hintText=non-empty, hintLocales=[]}}, true)
+04-19 11:19:37.710  1379  1379 I AndroidIME: AbstractIme.onActivate():96 PasswordIme.onActivate() : EditorInfo = EditorInfo{packageName=com.thembelanim.rideza, inputType=4081, inputTypeString=Password[CapSentences],
+enableLearning=false, autoCorrection=false, autoComplete=true, imeOptions=4000006, privateImeOptions=null, actionName=DONE, actionLabel=null, initialSelStart=0, initialSelEnd=0, initialCapsMode=3000, label=null, fieldId=108,
+fieldName=null, extras=Bundle[{android.support.text.emoji.emojiCompat_metadataVersion=11, androidx.core.view.inputmethod.EditorInfoCompat.STYLUS_HANDWRITING_ENABLED=false,
+android.support.text.emoji.emojiCompat_replaceAll=false}], hintText=non-empty, hintLocales=[]}, IncognitoMode = false, DeviceLocked = false
+04-19 11:19:38.523   774   888 I ImeTracker: com.thembelanim.rideza:a1996542: onTimeout at PHASE_WM_NOTIFY_IME_VISIBILITY_CHANGED_FROM_CLIENT
+04-19 11:19:40.428  1379  1379 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1347 onStartInput(EditorInfo{EditorInfo{packageName=com.thembelanim.rideza, inputType=4081,
+inputTypeString=Password[CapSentences], enableLearning=false, autoCorrection=false, autoComplete=true, imeOptions=4000006, privateImeOptions=null, actionName=DONE, actionLabel=null, initialSelStart=0, initialSelEnd=0,
+initialCapsMode=3000, label=null, fieldId=108, fieldName=null, extras=Bundle[mParcelledData.dataSize=404], hintText=non-empty, hintLocales=[]}}, true)
+04-19 11:19:40.430  1379  1379 I GoogleInputMethodService: GoogleInputMethodService.onStartInputView():1440 onStartInputView(EditorInfo{EditorInfo{packageName=com.thembelanim.rideza, inputType=4081,
+inputTypeString=Password[CapSentences], enableLearning=false, autoCorrection=false, autoComplete=true, imeOptions=4000006, privateImeOptions=null, actionName=DONE, actionLabel=null, initialSelStart=0, initialSelEnd=0,
+initialCapsMode=3000, label=null, fieldId=108, fieldName=null, extras=Bundle[{android.support.text.emoji.emojiCompat_metadataVersion=11, androidx.core.view.inputmethod.EditorInfoCompat.STYLUS_HANDWRITING_ENABLED=false,
+android.support.text.emoji.emojiCompat_replaceAll=false}], hintText=non-empty, hintLocales=[]}}, true)
+04-19 11:19:40.430   774  2272 W PackageConfigPersister: App-specific configuration not found for packageName: com.thembelanim.rideza and userId: 0
+04-19 11:19:40.436  1379  1379 I AndroidIME: AbstractIme.onActivate():96 PasswordIme.onActivate() : EditorInfo = EditorInfo{packageName=com.thembelanim.rideza, inputType=4081, inputTypeString=Password[CapSentences],
+enableLearning=false, autoCorrection=false, autoComplete=true, imeOptions=4000006, privateImeOptions=null, actionName=DONE, actionLabel=null, initialSelStart=0, initialSelEnd=0, initialCapsMode=3000, label=null, fieldId=108,
+fieldName=null, extras=Bundle[{android.support.text.emoji.emojiCompat_metadataVersion=11, androidx.core.view.inputmethod.EditorInfoCompat.STYLUS_HANDWRITING_ENABLED=false,
+android.support.text.emoji.emojiCompat_replaceAll=false}], hintText=non-empty, hintLocales=[]}, IncognitoMode = false, DeviceLocked = false
+04-19 11:19:46.737  1379  1379 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1347 onStartInput(EditorInfo{EditorInfo{packageName=com.thembelanim.rideza, inputType=4081,
+inputTypeString=Password[CapSentences], enableLearning=false, autoCorrection=false, autoComplete=true, imeOptions=4000006, privateImeOptions=null, actionName=DONE, actionLabel=null, initialSelStart=0, initialSelEnd=0,
+initialCapsMode=3000, label=null, fieldId=108, fieldName=null, extras=Bundle[mParcelledData.dataSize=404], hintText=non-empty, hintLocales=[]}}, true)
+04-19 11:19:46.739  1379  1379 I GoogleInputMethodService: GoogleInputMethodService.onStartInputView():1440 onStartInputView(EditorInfo{EditorInfo{packageName=com.thembelanim.rideza, inputType=4081,
+inputTypeString=Password[CapSentences], enableLearning=false, autoCorrection=false, autoComplete=true, imeOptions=4000006, privateImeOptions=null, actionName=DONE, actionLabel=null, initialSelStart=0, initialSelEnd=0,
+initialCapsMode=3000, label=null, fieldId=108, fieldName=null, extras=Bundle[{android.support.text.emoji.emojiCompat_metadataVersion=11, androidx.core.view.inputmethod.EditorInfoCompat.STYLUS_HANDWRITING_ENABLED=false,
+android.support.text.emoji.emojiCompat_replaceAll=false}], hintText=non-empty, hintLocales=[]}}, true)
+04-19 11:19:46.742   774  2272 W PackageConfigPersister: App-specific configuration not found for packageName: com.thembelanim.rideza and userId: 0
+04-19 11:19:46.744  1379  1379 I AndroidIME: AbstractIme.onActivate():96 PasswordIme.onActivate() : EditorInfo = EditorInfo{packageName=com.thembelanim.rideza, inputType=4081, inputTypeString=Password[CapSentences],
+enableLearning=false, autoCorrection=false, autoComplete=true, imeOptions=4000006, privateImeOptions=null, actionName=DONE, actionLabel=null, initialSelStart=0, initialSelEnd=0, initialCapsMode=3000, label=null, fieldId=108,
+fieldName=null, extras=Bundle[{android.support.text.emoji.emojiCompat_metadataVersion=11, androidx.core.view.inputmethod.EditorInfoCompat.STYLUS_HANDWRITING_ENABLED=false,
+android.support.text.emoji.emojiCompat_replaceAll=false}], hintText=non-empty, hintLocales=[]}, IncognitoMode = false, DeviceLocked = false
+04-19 11:19:51.713  9039  9039 I ImeTracker: com.thembelanim.rideza:561bfcaa: onRequestHide at ORIGIN_CLIENT reason HIDE_SOFT_INPUT fromUser false
+04-19 11:19:51.716   774  1568 D CoreBackPreview: Window{9a4bf66 u0 com.thembelanim.rideza/com.thembelanim.rideza.MainActivity}: Setting back callback
+OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@8264479, mPriority=0, mIsAnimationCallback=false, mOverrideBehavior=0}
+04-19 11:19:51.719   774   888 I ImeTracker: com.thembelanim.rideza:96f05de6: onRequestShow at ORIGIN_SERVER reason ATTACH_NEW_INPUT fromUser false
+04-19 11:19:51.728  1379  1379 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1347 onStartInput(EditorInfo{EditorInfo{packageName=com.thembelanim.rideza, inputType=21, inputTypeString=EmailAddress[],
+enableLearning=true, autoCorrection=false, autoComplete=true, imeOptions=8000006, privateImeOptions=null, actionName=DONE, actionLabel=null, initialSelStart=22, initialSelEnd=22, initialCapsMode=0, label=null, fieldId=106,
+fieldName=null, extras=Bundle[mParcelledData.dataSize=404], hintText=non-empty, hintLocales=[]}}, false)
+04-19 11:19:51.734  1379  1379 I GoogleInputMethodService: GoogleInputMethodService.onStartInputView():1440 onStartInputView(EditorInfo{EditorInfo{packageName=com.thembelanim.rideza, inputType=21,
+inputTypeString=EmailAddress[], enableLearning=true, autoCorrection=false, autoComplete=true, imeOptions=8000006, privateImeOptions=null, actionName=DONE, actionLabel=null, initialSelStart=22, initialSelEnd=22,
+initialCapsMode=0, label=null, fieldId=106, fieldName=null, extras=Bundle[{android.support.text.emoji.emojiCompat_metadataVersion=11, androidx.core.view.inputmethod.EditorInfoCompat.STYLUS_HANDWRITING_ENABLED=true,
+android.support.text.emoji.emojiCompat_replaceAll=false}], hintText=non-empty, hintLocales=[]}}, false)
+04-19 11:19:51.736   774   844 W PackageConfigPersister: App-specific configuration not found for packageName: com.thembelanim.rideza and userId: 0
+04-19 11:19:51.737  1379  1379 I AndroidIME: AbstractIme.onActivate():96 LatinIme.onActivate() : EditorInfo = EditorInfo{packageName=com.thembelanim.rideza, inputType=21, inputTypeString=EmailAddress[], enableLearning=true,
+autoCorrection=false, autoComplete=true, imeOptions=8000006, privateImeOptions=null, actionName=DONE, actionLabel=null, initialSelStart=22, initialSelEnd=22, initialCapsMode=0, label=null, fieldId=106, fieldName=null,
+extras=Bundle[{android.support.text.emoji.emojiCompat_metadataVersion=11, androidx.core.view.inputmethod.EditorInfoCompat.STYLUS_HANDWRITING_ENABLED=true, android.support.text.emoji.emojiCompat_replaceAll=false}],
+hintText=non-empty, hintLocales=[]}, IncognitoMode = false, DeviceLocked = false
+04-19 11:19:51.762   774   844 D CoreBackPreview: Window{9a4bf66 u0 com.thembelanim.rideza/com.thembelanim.rideza.MainActivity}: Setting back callback
+OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@750f61f, mPriority=0, mIsAnimationCallback=true, mOverrideBehavior=0}
+04-19 11:19:51.763   774   990 D ImeInsetsSourceProvider: showImePostLayout cancelled, serverVisible: true, frozen: false, mWin is: non-null, isDrawn: true, mGivenInsetsPending: false, imeLayeringTarget: Window{9a4bf66 u0
+com.thembelanim.rideza/com.thembelanim.rideza.MainActivity}, controlTarget: Window{9a4bf66 u0 com.thembelanim.rideza/com.thembelanim.rideza.MainActivity}
+04-19 11:19:51.763   774   990 I ImeTracker: com.thembelanim.rideza:a1996542: onFinished on previously finished token at PHASE_WM_ABORT_SHOW_IME_POST_LAYOUT with STATUS_CANCEL
+04-19 11:19:51.763   774   990 I ImeTracker: com.thembelanim.rideza:a1996542: onCancelled at PHASE_WM_ABORT_SHOW_IME_POST_LAYOUT
+04-19 11:19:51.909  9039  9039 I ImeTracker: com.thembelanim.rideza:eed78ec: onRequestHide at ORIGIN_CLIENT reason HIDE_SOFT_INPUT fromUser false
+04-19 11:19:51.910  9039  9039 I ImeTracker: com.thembelanim.rideza:eed78ec: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+04-19 11:19:51.943   774  1825 D ImeInsetsSourceProvider: showImePostLayout aborted, serverVisible: true, frozen: false, mWin is: non-null, isDrawn: true, mGivenInsetsPending: false, imeLayeringTarget: Window{9a4bf66 u0
+com.thembelanim.rideza/com.thembelanim.rideza.MainActivity}, controlTarget: Window{9a4bf66 u0 com.thembelanim.rideza/com.thembelanim.rideza.MainActivity}
+04-19 11:19:51.944   774  1825 I ImeTracker: com.thembelanim.rideza:96f05de6: onFailed at PHASE_WM_ABORT_SHOW_IME_POST_LAYOUT
+04-19 11:19:51.952   774   990 D CoreBackPreview: Window{9a4bf66 u0 com.thembelanim.rideza/com.thembelanim.rideza.MainActivity}: Setting back callback
+OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@523efca, mPriority=0, mIsAnimationCallback=false, mOverrideBehavior=0}
+04-19 11:19:54.821  9039  9039 I ImeTracker: com.thembelanim.rideza:685f94b2: onRequestHide at ORIGIN_CLIENT reason HIDE_SOFT_INPUT_FROM_VIEW fromUser false
+04-19 11:19:54.821  9039  9039 I ImeTracker: com.thembelanim.rideza:685f94b2: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+04-19 11:19:55.081  1834  7087 I PhenotypeResourceReader: unable to find any Phenotype resource metadata for com.thembelanim.rideza
+04-19 11:19:55.099  1834  6979 I PhenotypeResourceReader: unable to find any Phenotype resource metadata for com.thembelanim.rideza
+04-19 11:19:55.102  9039  9039 D AndroidRuntime: Shutting down VM
+04-19 11:19:55.103  9039  9039 E AndroidRuntime: FATAL EXCEPTION: main
+04-19 11:19:55.103  9039  9039 E AndroidRuntime: Process: com.thembelanim.rideza, PID: 9039
+04-19 11:19:55.103  9039  9039 E AndroidRuntime: java.lang.IllegalStateException: API key not found.  Check that <meta-data android:name="com.google.android.geo.API_KEY" android:value="your API key"/> is in the <application>
+element of AndroidManifest.xml
+04-19 11:19:55.103  9039  9039 E AndroidRuntime:        at com.google.maps.api.android.lib6.common.h.b(:com.google.android.gms.policy_maps_core_dynamite@254515607@254515602032.843324832.843324832:117)
+04-19 11:19:55.103  9039  9039 E AndroidRuntime:        at com.google.android.gms.maps.internal.CreatorImpl.c(:com.google.android.gms.policy_maps_core_dynamite@254515607@254515602032.843324832.843324832:864)
+04-19 11:19:55.103  9039  9039 E AndroidRuntime:        at com.google.android.gms.maps.internal.CreatorImpl.newMapViewDelegate(:com.google.android.gms.policy_maps_core_dynamite@254515607@254515602032.843324832.843324832:23)
+04-19 11:19:55.103  9039  9039 E AndroidRuntime:        at com.google.android.gms.maps.internal.h.bt(:com.google.android.gms.policy_maps_core_dynamite@254515607@254515602032.843324832.843324832:311)
+04-19 11:19:55.103  9039  9039 E AndroidRuntime:        at m140.ayi.onTransact(:com.google.android.gms.policy_maps_core_dynamite@254515607@254515602032.843324832.843324832:21)
+04-19 11:19:55.103  9039  9039 E AndroidRuntime:        at android.os.Binder.transact(Binder.java:1325)
+04-19 11:19:55.103  9039  9039 E AndroidRuntime:        at com.google.android.gms.internal.maps.zza.zzJ(com.google.android.gms:play-services-maps@@18.2.0:2)
+04-19 11:19:55.103  9039  9039 E AndroidRuntime:        at com.google.android.gms.maps.internal.zze.zzg(com.google.android.gms:play-services-maps@@18.2.0:4)
+04-19 11:19:55.103  9039  9039 E AndroidRuntime:        at com.google.android.gms.maps.zzai.zzb(com.google.android.gms:play-services-maps@@18.2.0:4)
+04-19 11:19:55.103  9039  9039 E AndroidRuntime:        at com.google.android.gms.maps.zzai.createDelegate(com.google.android.gms:play-services-maps@@18.2.0:1)
+04-19 11:19:55.103  9039  9039 E AndroidRuntime:        at com.google.android.gms.dynamic.DeferredLifecycleHelper.zaf(com.google.android.gms:play-services-base@@18.2.0:6)
+04-19 11:19:55.103  9039  9039 E AndroidRuntime:        at com.google.android.gms.dynamic.DeferredLifecycleHelper.onCreate(com.google.android.gms:play-services-base@@18.2.0:1)
+04-19 11:19:55.103  9039  9039 E AndroidRuntime:        at com.google.android.gms.maps.MapView.onCreate(com.google.android.gms:play-services-maps@@18.2.0:4)
+04-19 11:19:55.103  9039  9039 E AndroidRuntime:        at com.rnmaps.maps.MapView.<init>(MapView.java:180)
+04-19 11:19:55.103  9039  9039 E AndroidRuntime:        at com.rnmaps.maps.MapManager.createViewInstance(MapManager.java:78)
+04-19 11:19:55.103  9039  9039 E AndroidRuntime:        at com.rnmaps.maps.MapManager.createViewInstance(MapManager.java:33)
+04-19 11:19:55.103  9039  9039 E AndroidRuntime:        at com.facebook.react.uimanager.ViewManager.createViewInstance(ViewManager.java:216)
+04-19 11:19:55.103  9039  9039 E AndroidRuntime:        at com.rnmaps.maps.MapManager.createViewInstance(MapManager.java:108)
+04-19 11:19:55.103  9039  9039 E AndroidRuntime:        at com.rnmaps.maps.MapManager.createViewInstance(MapManager.java:33)
+04-19 11:19:55.103  9039  9039 E AndroidRuntime:        at com.facebook.react.uimanager.ViewManager.createView(ViewManager.java:148)
+04-19 11:19:55.103  9039  9039 E AndroidRuntime:        at com.facebook.react.fabric.mounting.SurfaceMountingManager.createViewUnsafe(SurfaceMountingManager.java:673)
+04-19 11:19:55.103  9039  9039 E AndroidRuntime:        at com.facebook.react.fabric.mounting.SurfaceMountingManager.preallocateView(SurfaceMountingManager.java:1083)
+04-19 11:19:55.103  9039  9039 E AndroidRuntime:        at com.facebook.react.fabric.mounting.mountitems.PreAllocateViewMountItem.execute(PreAllocateViewMountItem.kt:38)
+04-19 11:19:55.103  9039  9039 E AndroidRuntime:        at com.facebook.react.fabric.mounting.MountItemDispatcher.executeOrEnqueue(MountItemDispatcher.kt:312)
+04-19 11:19:55.103  9039  9039 E AndroidRuntime:        at com.facebook.react.fabric.mounting.MountItemDispatcher.dispatchMountItems(MountItemDispatcher.kt:205)
+04-19 11:19:55.103  9039  9039 E AndroidRuntime:        at com.facebook.react.fabric.mounting.MountItemDispatcher.tryDispatchMountItems(MountItemDispatcher.kt:88)
+04-19 11:19:55.103  9039  9039 E AndroidRuntime:        at com.facebook.react.fabric.FabricUIManager$DispatchUIFrameCallback.doFrameGuarded(FabricUIManager.java:1484)
+04-19 11:19:55.103  9039  9039 E AndroidRuntime:        at com.facebook.react.uimanager.GuardedFrameCallback.doFrame(GuardedFrameCallback.kt:25)
+04-19 11:19:55.103  9039  9039 E AndroidRuntime:        at com.facebook.react.modules.core.ReactChoreographer.frameCallback$lambda$1(ReactChoreographer.kt:59)
+04-19 11:19:55.103  9039  9039 E AndroidRuntime:        at com.facebook.react.modules.core.ReactChoreographer.$r8$lambda$nSkFhrr5T7rop_XKwzlLov4NLLw(Unknown Source:0)
+04-19 11:19:55.103  9039  9039 E AndroidRuntime:        at com.facebook.react.modules.core.ReactChoreographer$$ExternalSyntheticLambda0.doFrame(D8$$SyntheticClass:0)
+04-19 11:19:55.103  9039  9039 E AndroidRuntime:        at android.view.Choreographer$CallbackRecord.run(Choreographer.java:1601)
+04-19 11:19:55.103  9039  9039 E AndroidRuntime:        at android.view.Choreographer$CallbackRecord.run(Choreographer.java:1612)
+04-19 11:19:55.103  9039  9039 E AndroidRuntime:        at android.view.Choreographer.doCallbacks(Choreographer.java:1208)
+04-19 11:19:55.103  9039  9039 E AndroidRuntime:        at android.view.Choreographer.doFrame(Choreographer.java:1133)
+04-19 11:19:55.103  9039  9039 E AndroidRuntime:        at android.view.Choreographer$FrameDisplayEventReceiver.run(Choreographer.java:1586)
+04-19 11:19:55.103  9039  9039 E AndroidRuntime:        at android.os.Handler.handleCallback(Handler.java:1070)
+04-19 11:19:55.103  9039  9039 E AndroidRuntime:        at android.os.Handler.dispatchMessage(Handler.java:125)
+04-19 11:19:55.103  9039  9039 E AndroidRuntime:        at android.os.Looper.dispatchMessage(Looper.java:333)
+04-19 11:19:55.103  9039  9039 E AndroidRuntime:        at android.os.Looper.loopOnce(Looper.java:263)
+04-19 11:19:55.103  9039  9039 E AndroidRuntime:        at android.os.Looper.loop(Looper.java:367)
+04-19 11:19:55.103  9039  9039 E AndroidRuntime:        at android.app.ActivityThread.main(ActivityThread.java:9227)
+04-19 11:19:55.103  9039  9039 E AndroidRuntime:        at java.lang.reflect.Method.invoke(Native Method)
+04-19 11:19:55.103  9039  9039 E AndroidRuntime:        at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:566)
+04-19 11:19:55.103  9039  9039 E AndroidRuntime:        at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:929)
+04-19 11:19:55.110   774  2272 W ActivityTaskManager:   Force finishing activity com.thembelanim.rideza/.MainActivity
+04-19 11:19:55.113  1017  1083 V WindowManagerShell: Transition requested (#14): android.os.BinderProxy@ef423cd TransitionRequestInfo { type = CLOSE, triggerTask = TaskInfo{userId=0 taskId=169 effectiveUid=10219 displayId=0
+isRunning=true baseIntent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10300000 cmp=com.thembelanim.rideza/.MainActivity }
+baseActivity=ComponentInfo{com.thembelanim.rideza/com.thembelanim.rideza.MainActivity} topActivity=ComponentInfo{com.thembelanim.rideza/com.thembelanim.rideza.MainActivity} origActivity=null
+realActivity=ComponentInfo{com.thembelanim.rideza/com.thembelanim.rideza.MainActivity} numActivities=1 lastActiveTime=58827443 supportsMultiWindow=true resizeMode=1 isResizeable=true minWidth=-1 minHeight=-1
+defaultMinSize=220 token=WCT{android.os.BinderProxy@59fa6c7} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=Rect(0, 0
+- 0, 0) topActivityInfo=ActivityInfo{e69e482 com.thembelanim.rideza.MainActivity} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=true isVisible=true isVisibleRequested=true
+isTopActivityNoDisplay=false isSleeping=false locusId=null displayAreaFeatureId=1 isTopActivityTransparent=false isActivityStackTransparent=false lastNonFullscreenBounds=null capturedLink=null capturedLinkTimestamp=0
+requestedVisibleTypes=503 topActivityRequestOpenInBrowserEducationTimestamp=0 appCompatTaskInfo=AppCompatTaskInfo { topActivityInSizeCompat=false isLeafTask= true eligibleForLetterboxEducation= false
+isLetterboxEducationEnabled= true isLetterboxDoubleTapEnabled= false eligibleForUserAspectRatioButton= false topActivityBoundsLetterboxed= false isFromLetterboxDoubleTap= false topActivityLetterboxVerticalPosition= -1
+topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 topActivityAppBounds=Rect(0, 0 - 1080, 2400) isUserFullscreenOverrideEnabled=false isSystemFullscreenOverrideEnabled=false
+hasMinAspectRatioOverride=false topActivityLetterboxBounds=null cameraCompatTaskInfo=CameraCompatTaskInfo { cameraCompatMode=inactiveundefined} topNonResizableActivityAspectRatio=-1.0} topActivityMainWindowFrame=null
+isAppBubble=false}, pipChange = null, remoteTransition = null, displayChange = null, requestedLocation = null, userChange = null, flags = 16, debugId = 14 }
+04-19 11:19:55.117   774   797 I ActivityManager: Showing crash dialog for package com.thembelanim.rideza u0
+04-19 11:19:55.138  1834  6979 I PhenotypeResourceReader: unable to find any Phenotype resource metadata for com.thembelanim.rideza
+04-19 11:19:55.362   774   797 D CoreBackPreview: Window{45a7156 u0 Application Error: com.thembelanim.rideza}: Setting back callback
+OnBackInvokedCallbackInfo{mCallback=android.window.WindowOnBackInvokedDispatcher$OnBackInvokedCallbackWrapper@28fdc06, mPriority=-1, mIsAnimationCallback=false, mOverrideBehavior=0}
+04-19 11:19:55.613   774   800 W ActivityTaskManager: Activity top resumed state loss timeout for ActivityRecord{35445455 u0 com.thembelanim.rideza/.MainActivity t169 f}}
+04-19 11:19:55.613   774   800 W ActivityTaskManager: Activity pause timeout for ActivityRecord{35445455 u0 com.thembelanim.rideza/.MainActivity t169 f}}
+04-19 11:19:55.848   774   796 V WindowManager: Sent Transition (#14) createdAt=04-19 11:19:55.110 via request=TransitionRequestInfo { type = CLOSE, triggerTask = TaskInfo{userId=0 taskId=169 effectiveUid=10219 displayId=0
+isRunning=true baseIntent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10300000 cmp=com.thembelanim.rideza/.MainActivity }
+baseActivity=ComponentInfo{com.thembelanim.rideza/com.thembelanim.rideza.MainActivity} topActivity=ComponentInfo{com.thembelanim.rideza/com.thembelanim.rideza.MainActivity} origActivity=null
+realActivity=ComponentInfo{com.thembelanim.rideza/com.thembelanim.rideza.MainActivity} numActivities=1 lastActiveTime=58827443 supportsMultiWindow=true resizeMode=1 isResizeable=true minWidth=-1 minHeight=-1
+defaultMinSize=220 token=WCT{RemoteToken{409f95d Task{e8174be #169 type=standard A=10219:com.thembelanim.rideza}}} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1
+lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=Rect(0, 0 - 0, 0) topActivityInfo=ActivityInfo{314c260 com.thembelanim.rideza.MainActivity} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=true
+isVisible=true isVisibleRequested=true isTopActivityNoDisplay=false isSleeping=false locusId=null displayAreaFeatureId=1 isTopActivityTransparent=false isActivityStackTransparent=false lastNonFullscreenBounds=null
+capturedLink=null capturedLinkTimestamp=0 requestedVisibleTypes=503 topActivityRequestOpenInBrowserEducationTimestamp=0 appCompatTaskInfo=AppCompatTaskInfo { topActivityInSizeCompat=false isLeafTask= true
+eligibleForLetterboxEducation= false isLetterboxEducationEnabled= true isLetterboxDoubleTapEnabled= false eligibleForUserAspectRatioButton= false topActivityBoundsLetterboxed= false isFromLetterboxDoubleTap= false
+topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 topActivityAppBounds=Rect(0, 0 - 1080, 2400) isUserFullscreenOverrideEnabled=false
+isSystemFullscreenOverrideEnabled=false hasMinAspectRatioOverride=false topActivityLetterboxBounds=null cameraCompatTaskInfo=CameraCompatTaskInfo { cameraCompatMode=inactiveundefined} topNonResizableActivityAspectRatio=-1.0}
+topActivityMainWindowFrame=null isAppBubble=false}, pipChange = null, remoteTransition = null, displayChange = null, requestedLocation = null, userChange = null, flags = 16, debugId = 14 }
+04-19 11:19:55.861   774   796 V WindowManager:         {WCT{RemoteToken{409f95d Task{e8174be #169 type=standard A=10219:com.thembelanim.rideza}}} m=CLOSE f=NONE leash=Surface(name=Task=169#258)/@0xe6c3c92 sb=Rect(0, 0 -
+1080, 2400) eb=Rect(0, 0 - 1080, 2400) epz=Point(1080, 2400) d=0 taskParent=-1 winMode=1 userId=0},
+04-19 11:19:57.123   774  2273 I WindowManager: WIN DEATH: Window{9a4bf66 u0 com.thembelanim.rideza/com.thembelanim.rideza.MainActivity}
+04-19 11:19:57.124   774  1914 I ImeTracker: com.thembelanim.rideza:b5b84e9d: onRequestHide at ORIGIN_SERVER reason HIDE_REMOVE_CLIENT fromUser false
+04-19 11:19:57.124   774  1914 I ImeTracker: com.thembelanim.rideza:b5b84e9d: onCancelled at PHASE_SERVER_SHOULD_HIDE
+04-19 11:19:57.127   621   621 E SurfaceFlinger: [com.thembelanim.rideza/com.thembelanim.rideza.MainActivity#270] writeReleaseFence failed. error 104 (Connection reset by peer)
+04-19 11:19:57.128   774  1568 I ActivityManager: Process com.thembelanim.rideza (pid 9039) has died: cch CRE
+04-19 11:19:57.140   774   797 D CoreBackPreview: Window{45a7156 u0 Application Error: com.thembelanim.rideza}: Setting back callback null
+04-19 11:19:57.144   774  2272 W ActivityManager: Ignoring remove of inactive process: ProcessRecord{d2de03a 0:com.thembelanim.rideza/u0a219}
+04-19 11:20:01.714   774   888 I ImeTracker: com.thembelanim.rideza:561bfcaa: onTimeout at PHASE_CLIENT_ANIMATION_CANCEL
+
