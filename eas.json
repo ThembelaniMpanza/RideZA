@@ -1,24 +1,43 @@
 {
   "cli": {
     "version": ">= 16.20.4",
-    "appVersionSource": "remote"
+    "appVersionSource": "local"
   },
   "build": {
     "development": {
       "developmentClient": true,
       "distribution": "internal",
+      "android": {
+        "autoIncrement": "version"
+      },
+      "ios": {
+        "autoIncrement": "version"
+      },
       "env": {
-        "EXPO_PUBLIC_SHOW_TEST_ACCOUNT": "1"
+        "EXPO_PUBLIC_SHOW_TEST_ACCOUNT": "1",
+        "EXPO_PUBLIC_ENABLE_CRASH_SCREEN": "1"
       }
     },
     "preview": {
       "distribution": "internal",
+      "android": {
+        "autoIncrement": "version"
+      },
+      "ios": {
+        "autoIncrement": "version"
+      },
       "env": {
-        "EXPO_PUBLIC_SHOW_TEST_ACCOUNT": "1"
+        "EXPO_PUBLIC_SHOW_TEST_ACCOUNT": "1",
+        "EXPO_PUBLIC_ENABLE_CRASH_SCREEN": "1"
       }
     },
     "production": {
-      "autoIncrement": true
+      "android": {
+        "autoIncrement": "version"
+      },
+      "ios": {
+        "autoIncrement": "version"
+      }
     }
   },
   "submit": {
