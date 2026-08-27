@@ -17,12 +17,13 @@ import {
   CenterNextButton,
 } from '../../src/screens/Onboarding';
 import { router } from "expo-router";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useAuth } from "../../src/auth/AuthProvider";
 import { useTheme } from "../../src/theme/ThemeProvider";
 
 const IntroductionAnimationScreen: React.FC = () => {
   const window = useWindowDimensions();
   const { isDark, colors } = useTheme();
+  const { completeOnboarding } = useAuth();
 
   const animationController = useRef<Animated.Value>(new Animated.Value(0));
   const animValue = useRef<number>(0);
@@ -63,13 +64,13 @@ const IntroductionAnimationScreen: React.FC = () => {
     } else if (animValue.current > 0.4 && animValue.current <= 0.6) {
       toValue = 0.8;
     } else if (animValue.current > 0.6 && animValue.current <= 0.8) {
-      await AsyncStorage.setItem("hasOnboarded", "true");
+      await completeOnboarding();
       router.replace("/(auth)/signup");
       return;
     }
 
     toValue !== undefined && playAnimation(toValue);
-  }, [playAnimation]);
+  }, [completeOnboarding, playAnimation]);
 
   const onBackClick = useCallback(() => {
     let toValue;
@@ -114,7 +115,10 @@ const IntroductionAnimationScreen: React.FC = () => {
 
       <CenterNextButton
         {...{ onNextClick, animationController }}
-        onLoginClick={() => router.push("/(auth)/login")}
+        onLoginClick={async () => {
+          await completeOnboarding();
+          router.replace("/(auth)/login");
+        }}
       />
     </View>
   );

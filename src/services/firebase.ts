@@ -1,9 +1,5 @@
 import { getApp, getApps, initializeApp } from "firebase/app";
-import {
-  getAuth,
-  initializeAuth,
-  type Auth,
-} from "firebase/auth";
+import { initializeFirebaseAuth } from "./firebaseAuth";
 
 const firebaseConfig = {
   apiKey: process.env.EXPO_PUBLIC_FIREBASE_API_KEY ?? "",
@@ -27,15 +23,7 @@ if (requiredKeys.length > 0) {
 
 const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
 
-let authInstance: Auth;
-
-try {
-  authInstance = initializeAuth(app);
-} catch {
-  authInstance = getAuth(app);
-}
-
-export const auth = authInstance;
+export const auth = initializeFirebaseAuth(app);
 
 export function isFirebaseConfigured() {
   return requiredKeys.length === 0;

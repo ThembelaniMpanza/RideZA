@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../../services/firebase';
 import {
 View,
 Text,
@@ -12,17 +13,6 @@ Platform,
 Alert,
 } from 'react-native';
 
-/**
- * LoginScreen.js
- * - Intended to be the last page of an onboarding flow.
- * - On successful login it stores a token + onboarding flag and resets navigation
- *   so user can't go back to onboarding.
- *
- * Usage:
- * navigation.reset({ index: 0, routes: [{ name: 'Home' }] })
- * or adjust the target route name to match your app.
- */
-
 export default function LoginScreen({ navigation }) {
 const [email, setEmail] = useState('');
 const [password, setPassword] = useState('');
@@ -32,18 +22,6 @@ const validate = () => {
     return /\S+@\S+\.\S+/.test(email) && password.length >= 6;
 };
 
-// Placeholder auth call - replace with your real API call
-const fakeSignIn = (email, password) =>
-    new Promise((resolve, reject) => {
-        setTimeout(() => {
-            if (email === 'user@example.com' && password === 'password') {
-                resolve({ token: 'fake-jwt-token' });
-            } else {
-                reject(new Error('Invalid credentials'));
-            }
-        }, 1000);
-    });
-
 const onSignIn = async () => {
     if (!validate()) {
         Alert.alert('Invalid input', 'Please enter a valid email and a password (min 6 chars).');
@@ -51,17 +29,10 @@ const onSignIn = async () => {
     }
     setLoading(true);
     try {
-        // Replace fakeSignIn with real API call (fetch/axios) and handle errors accordingly
-        const { token } = await fakeSignIn(email.trim().toLowerCase(), password);
-        // Persist token and mark onboarding as done
-        await AsyncStorage.multiSet([
-            ['@user_token', token],
-            ['@has_onboarded', 'true'],
-        ]);
-        // Reset navigation stack so user cannot go back to onboarding/login
+        await signInWithEmailAndPassword(auth, email.trim().toLowerCase(), password);
         navigation.reset({
             index: 0,
-            routes: [{ name: 'HomeScreen' }], // change 'Home' to your main app screen name
+            routes: [{ name: 'HomeScreen' }],
         });
     } catch (err) {
         Alert.alert('Sign in failed', err.message || 'Please try again.');
@@ -70,9 +41,7 @@ const onSignIn = async () => {
     }
 };
 
-const onSkip = async () => {
-    // Optionally allow skipping sign in but still mark onboarding as seen
-    await AsyncStorage.setItem('@has_onboarded', 'true');
+const onSkip = () => {
     navigation.reset({
         index: 0,
         routes: [{ name: 'Home' }],

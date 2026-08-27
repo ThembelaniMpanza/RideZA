@@ -1,8 +1,7 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { MaterialIcons } from "@expo/vector-icons";
 import Constants from "expo-constants";
 import { router } from "expo-router";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import {
   Alert,
   Pressable,
@@ -12,6 +11,7 @@ import {
   View,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useAuth } from "../../src/auth/AuthProvider";
 import { useTheme } from "../../src/theme/ThemeProvider";
 import type { ThemeColors, ThemeMode } from "../../src/theme/theme";
 
@@ -59,34 +59,18 @@ const MENU_ITEMS: MenuItem[] = [
 export default function AccountTab() {
   const insets = useSafeAreaInsets();
   const { mode, setMode, colors, isDark } = useTheme();
-  const [email, setEmail] = useState("rider@rideza.com");
+  const { user, signOut, resetOnboarding } = useAuth();
+  const email = user?.email ?? "Email unavailable";
 
   const styles = useMemo(() => makeStyles(colors), [colors]);
   const appVersion = Constants.expoConfig?.version ?? "1.0.0";
 
-  useEffect(() => {
-    const loadEmail = async () => {
-      const storedEmail = await AsyncStorage.getItem("@user_email");
-      if (storedEmail) setEmail(storedEmail);
-    };
-
-    void loadEmail();
-  }, []);
-
   const handleLogout = async () => {
-    await AsyncStorage.multiRemove(["@user_token", "@user_email", "@firebase_uid"]);
-    router.replace("/(auth)/login");
+    await signOut();
   };
 
   const handleResetOnboarding = async () => {
-    await AsyncStorage.multiRemove([
-      "hasOnboarded",
-      "@has_onboarded",
-      "@user_token",
-      "@user_email",
-      "@firebase_uid",
-    ]);
-    router.replace("/(onboarding)");
+    await resetOnboarding();
   };
 
   return (
@@ -105,7 +89,9 @@ export default function AccountTab() {
             <MaterialIcons name="person" size={30} color={colors.primary} />
           </View>
           <View style={styles.profileCopy}>
-            <Text style={styles.profileName}>RideZA Rider</Text>
+            <Text style={styles.profileName}>
+              {user?.displayName ?? "RideZA Rider"}
+            </Text>
             <Text style={styles.profileEmail} numberOfLines={1}>
               {email}
             </Text>

@@ -1,4 +1,3 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
 import React, { useMemo, useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
@@ -52,20 +51,11 @@ export default function SignupScreen() {
     setLoading(true);
     try {
       const normalizedEmail = email.trim().toLowerCase();
-      const credential = await createUserWithEmailAndPassword(
+      await createUserWithEmailAndPassword(
         auth,
         normalizedEmail,
         password,
       );
-      const token = await credential.user.getIdToken();
-
-      await AsyncStorage.multiSet([
-        ["@user_token", token],
-        ["@user_email", normalizedEmail],
-        ["@firebase_uid", credential.user.uid],
-        ["hasOnboarded", "true"],
-      ]);
-      router.replace("/(main)");
     } catch (error: unknown) {
       const message =
         error instanceof Error ? error.message : "Please try again.";
