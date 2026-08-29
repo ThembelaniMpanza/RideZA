@@ -1,6 +1,9 @@
 import { router } from "expo-router";
+import { FirebaseError } from "firebase/app";
+import { sendPasswordResetEmail } from "firebase/auth";
 import React, { useState } from "react";
 import {
+  ActivityIndicator,
   Alert,
   KeyboardAvoidingView,
   Platform,
@@ -10,21 +13,62 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { auth, isFirebaseConfigured } from "../../src/services/firebase";
 import { useTheme } from "../../src/theme/ThemeProvider";
 
 export default function ForgotPasswordScreen() {
   const { colors } = useTheme();
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const styles = React.useMemo(() => makeStyles(colors), [colors]);
+  const normalizedEmail = email.trim().toLowerCase();
+  const isValidEmail = /\S+@\S+\.\S+/.test(normalizedEmail);
 
-  const onSend = () => {
-    if (!/\S+@\S+\.\S+/.test(email)) {
+  const showSuccess = () => {
+    Alert.alert(
+      "Check your email",
+      "If an account exists for that address, Firebase has sent password reset instructions.",
+      [{ text: "OK", onPress: () => router.back() }],
+    );
+  };
+
+  const onSend = async () => {
+    if (!isFirebaseConfigured()) {
+      Alert.alert(
+        "Firebase not configured",
+        "Set the EXPO_PUBLIC_FIREBASE_* environment variables before resetting passwords.",
+      );
+      return;
+    }
+
+    if (!isValidEmail) {
       Alert.alert("Invalid email", "Enter a valid email address.");
       return;
     }
-    Alert.alert("Email sent", "Check your inbox for reset instructions.");
-    router.back();
+
+    setLoading(true);
+    try {
+      await sendPasswordResetEmail(auth, normalizedEmail);
+      showSuccess();
+    } catch (error: unknown) {
+      if (error instanceof FirebaseError && error.code === "auth/user-not-found") {
+        showSuccess();
+        return;
+      }
+
+      const message =
+        error instanceof FirebaseError && error.code === "auth/too-many-requests"
+          ? "Too many reset attempts. Wait a few minutes and try again."
+          : error instanceof FirebaseError &&
+              error.code === "auth/network-request-failed"
+            ? "Check your internet connection and try again."
+            : "We could not send the reset email. Please try again.";
+
+      Alert.alert("Reset failed", message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -44,15 +88,32 @@ export default function ForgotPasswordScreen() {
           placeholderTextColor={colors.muted}
           keyboardType="email-address"
           autoCapitalize="none"
+          autoComplete="email"
+          textContentType="emailAddress"
+          returnKeyType="send"
           value={email}
           onChangeText={setEmail}
+          onSubmitEditing={() => void onSend()}
+          editable={!loading}
         />
 
-        <TouchableOpacity style={styles.button} onPress={onSend}>
-          <Text style={styles.buttonText}>Send reset link</Text>
+        <TouchableOpacity
+          style={[styles.button, loading ? styles.buttonDisabled : null]}
+          onPress={() => void onSend()}
+          disabled={loading}
+        >
+          {loading ? (
+            <ActivityIndicator color={colors.onPrimary} />
+          ) : (
+            <Text style={styles.buttonText}>Send reset link</Text>
+          )}
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.back} onPress={() => router.back()}>
+        <TouchableOpacity
+          style={styles.back}
+          onPress={() => router.back()}
+          disabled={loading}
+        >
           <Text style={styles.link}>Back to login</Text>
         </TouchableOpacity>
       </View>
@@ -95,6 +156,7 @@ function makeStyles(colors: any) {
       alignItems: "center",
       marginTop: 8,
     },
+    buttonDisabled: { opacity: 0.6 },
     buttonText: { color: colors.onPrimary, fontWeight: "800" },
     back: { marginTop: 16, alignItems: "center" },
     link: { color: colors.primary, fontWeight: "700" },

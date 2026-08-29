@@ -16,7 +16,12 @@ import {
   TextInput,
   View,
 } from "react-native";
-import MapView, { Marker, Polyline, Region } from "react-native-maps";
+import MapView, {
+  Marker,
+  Polyline,
+  PROVIDER_GOOGLE,
+  Region,
+} from "react-native-maps";
 import { BlurView } from "expo-blur";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useTheme } from "../../src/theme/ThemeProvider";
@@ -1050,6 +1055,7 @@ export default function RideTab() {
   return (
     <View style={[styles.screen, { backgroundColor: colors.background }]}>
       <MapView
+        provider={PROVIDER_GOOGLE}
         ref={ref => {
           mapRef.current = ref;
         }}
