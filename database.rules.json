@@ -2,6 +2,10 @@
   "rules": {
     ".read": false,
     ".write": false,
+    "betaSignups": {
+      ".read": false,
+      ".write": false
+    },
     "driverAvailability": {
       "$driverId": {
         ".read": "auth != null && (auth.uid === $driverId || root.child('locationReaders').child($driverId).child(auth.uid).val() === true)",

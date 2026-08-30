@@ -30,3 +30,16 @@ export async function requireVerifiedUser(
     throw new RequestAuthError(401, "The Firebase session is invalid or revoked.");
   }
 }
+
+export async function requireAdministrator(
+  request: AuthorizationRequest,
+): Promise<DecodedIdToken> {
+  const token = await requireVerifiedUser(request);
+  const role = typeof token.role === "string" ? token.role.trim().toLowerCase() : "";
+
+  if (role !== "administrator" && role !== "admin") {
+    throw new RequestAuthError(403, "Administrator access is required.");
+  }
+
+  return token;
+}
