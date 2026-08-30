@@ -1,0 +1,54 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "driverAvailability": {
+      "$driverId": {
+        ".read": "auth != null && (auth.uid === $driverId || root.child('locationReaders').child($driverId).child(auth.uid).val() === true)",
+        ".write": false
+      }
+    },
+    "driverAccess": {
+      ".read": false,
+      ".write": false
+    },
+    "driverLocations": {
+      "$driverId": {
+        ".read": "auth != null && (auth.uid === $driverId || root.child('locationReaders').child($driverId).child(auth.uid).val() === true)",
+        ".write": "auth != null && auth.uid === $driverId && newData.exists() && root.child('driverAccess').child($driverId).child('approved').val() === true && root.child('driverAvailability').child($driverId).child('online').val() === true && newData.child('sessionId').val() === root.child('driverAvailability').child($driverId).child('locationSessionId').val()",
+        ".validate": "newData.hasChildren(['sessionId', 'latitude', 'longitude', 'accuracy', 'recordedAt', 'sequence'])",
+        "sessionId": {
+          ".validate": "newData.isString() && newData.val().length >= 16 && newData.val().length <= 64"
+        },
+        "latitude": {
+          ".validate": "newData.isNumber() && newData.val() >= -90 && newData.val() <= 90"
+        },
+        "longitude": {
+          ".validate": "newData.isNumber() && newData.val() >= -180 && newData.val() <= 180"
+        },
+        "accuracy": {
+          ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 1000"
+        },
+        "heading": {
+          ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 360"
+        },
+        "speed": {
+          ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 100"
+        },
+        "recordedAt": {
+          ".validate": "newData.isNumber() && newData.val() >= now - 120000 && newData.val() <= now + 10000"
+        },
+        "sequence": {
+          ".validate": "newData.isNumber() && newData.val() >= 1 && (!data.exists() || newData.val() > data.val())"
+        },
+        "$other": {
+          ".validate": false
+        }
+      }
+    },
+    "locationReaders": {
+      ".read": false,
+      ".write": false
+    }
+  }
+}
