@@ -14,7 +14,13 @@
       ]
     }
   ],
+  "database": {
+    "rules": "database.rules.json"
+  },
   "emulators": {
+    "database": {
+      "port": 9000
+    },
     "functions": {
       "port": 5001
     }
