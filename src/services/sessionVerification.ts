@@ -6,6 +6,10 @@ export type VerifiedSession = {
   uid: string;
   email: string | null;
   expiresAt: string;
+  platformUserId: string;
+  phoneNumber: string | null;
+  role: "rider" | "driver" | "admin";
+  createdAtUtc: string;
 };
 
 export class SessionRejectedError extends Error {
@@ -63,6 +67,8 @@ export async function verifySessionWithServer(
     if (
       session.uid !== user.uid ||
       typeof session.expiresAt !== "string" ||
+      typeof session.platformUserId !== "string" ||
+      typeof session.role !== "string" ||
       (session.email !== null && typeof session.email !== "string")
     ) {
       throw new SessionRejectedError("The verification response was invalid.");

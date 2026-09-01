@@ -14,6 +14,8 @@
         "autoIncrement": "version"
       },
       "env": {
+        "EXPO_PUBLIC_API_URL": "https://api.staging.ride-za.com",
+        "EXPO_PUBLIC_AUTH_VERIFY_URL": "https://api.staging.ride-za.com/api/identity/session",
         "EXPO_PUBLIC_SHOW_TEST_ACCOUNT": "1",
         "EXPO_PUBLIC_ENABLE_CRASH_SCREEN": "1"
       }
@@ -27,11 +29,17 @@
         "autoIncrement": "version"
       },
       "env": {
+        "EXPO_PUBLIC_API_URL": "https://api.staging.ride-za.com",
+        "EXPO_PUBLIC_AUTH_VERIFY_URL": "https://api.staging.ride-za.com/api/identity/session",
         "EXPO_PUBLIC_SHOW_TEST_ACCOUNT": "1",
         "EXPO_PUBLIC_ENABLE_CRASH_SCREEN": "1"
       }
     },
     "production": {
+      "env": {
+        "EXPO_PUBLIC_API_URL": "https://api.ride-za.com",
+        "EXPO_PUBLIC_AUTH_VERIFY_URL": "https://api.ride-za.com/api/identity/session"
+      },
       "android": {
         "autoIncrement": "version"
       },

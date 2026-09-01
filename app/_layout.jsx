@@ -2,6 +2,8 @@ import { Stack } from "expo-router";
 import { ActivityIndicator, Text, View } from "react-native";
 import { AuthProvider, useAuth } from "../src/auth/AuthProvider";
 import { CrashBoundary } from "../src/components/CrashBoundary";
+import { RealtimeProvider } from "../src/realtime/RealtimeProvider";
+import { RideBackendProvider } from "../src/rides/RideBackendProvider";
 import { ThemeProvider } from "../src/theme/ThemeProvider";
 
 function RootNavigator() {
@@ -59,7 +61,11 @@ export default function RootLayout() {
     <CrashBoundary>
       <ThemeProvider>
         <AuthProvider>
-          <RootNavigator />
+          <RealtimeProvider>
+            <RideBackendProvider>
+              <RootNavigator />
+            </RideBackendProvider>
+          </RealtimeProvider>
         </AuthProvider>
       </ThemeProvider>
     </CrashBoundary>
