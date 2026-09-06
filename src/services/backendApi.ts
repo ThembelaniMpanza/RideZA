@@ -1,4 +1,9 @@
 import { auth } from "./firebase";
+import {
+  CORRELATION_HEADER,
+  getRequestCorrelationId,
+  getResponseCorrelationId,
+} from "./correlation";
 
 const REQUEST_TIMEOUT_MS = 15_000;
 
@@ -62,6 +67,7 @@ export class BackendApiError extends Error {
     public readonly status: number,
     message: string,
     public readonly details?: unknown,
+    public readonly correlationId?: string,
   ) {
     super(message);
     this.name = "BackendApiError";
@@ -86,22 +92,25 @@ async function send<T>(path: string, init: RequestInit, forceRefresh: boolean): 
   const user = auth.currentUser;
   if (!user) throw new BackendApiError(401, "Sign in before calling the RideZA API.");
 
+  const headers = new Headers(init.headers);
+  const requestCorrelationId = getRequestCorrelationId(headers.get(CORRELATION_HEADER));
+  headers.set(CORRELATION_HEADER, requestCorrelationId);
+  headers.set("Accept", "application/json");
+  if (init.body && !headers.has("Content-Type")) headers.set("Content-Type", "application/json");
+
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
   try {
+    headers.set("Authorization", `Bearer ${await user.getIdToken(forceRefresh)}`);
     const response = await fetch(`${getBackendBaseUrl()}${path}`, {
       ...init,
-      headers: {
-        Accept: "application/json",
-        Authorization: `Bearer ${await user.getIdToken(forceRefresh)}`,
-        ...(init.body ? { "Content-Type": "application/json" } : {}),
-        ...init.headers,
-      },
+      headers,
       signal: controller.signal,
     });
+    const responseCorrelationId = getResponseCorrelationId(response, requestCorrelationId);
 
     if (response.status === 401 && !forceRefresh) {
-      return send<T>(path, init, true);
+      return send<T>(path, { ...init, headers }, true);
     }
 
     const body = await parseBody(response);
@@ -109,12 +118,17 @@ async function send<T>(path: string, init: RequestInit, forceRefresh: boolean): 
       const message = body && typeof body === "object" && "error" in body
         ? String(body.error)
         : `RideZA API request failed with status ${response.status}.`;
-      throw new BackendApiError(response.status, message, body);
+      throw new BackendApiError(response.status, message, body, responseCorrelationId);
     }
     return body as T;
   } catch (error) {
     if (error instanceof BackendApiError) throw error;
-    throw new BackendApiError(0, error instanceof Error ? error.message : "Network request failed.");
+    throw new BackendApiError(
+      0,
+      error instanceof Error ? error.message : "Network request failed.",
+      undefined,
+      requestCorrelationId,
+    );
   } finally {
     clearTimeout(timeout);
   }
