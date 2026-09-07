@@ -14,6 +14,10 @@ import {
 } from "react-native";
 import { auth, isFirebaseConfigured } from "@/src/services/firebase";
 import { useTheme } from "@/src/theme/ThemeProvider";
+import {
+  captureOperationalError,
+  trackAnalyticsEvent,
+} from "@/src/telemetry/telemetry";
 
 export default function SignupScreen() {
   const { colors } = useTheme();
@@ -56,7 +60,17 @@ export default function SignupScreen() {
         normalizedEmail,
         password,
       );
+      trackAnalyticsEvent("authentication_completed", {
+        auth_method: "email_password",
+        outcome: "success",
+        source: "signup",
+      });
     } catch (error: unknown) {
+      captureOperationalError(error, {
+        event_type: "authentication_failed",
+        outcome: "failure",
+        source: "signup",
+      });
       const message =
         error instanceof Error ? error.message : "Please try again.";
       Alert.alert("Sign up failed", message);

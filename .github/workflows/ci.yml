@@ -15,7 +15,7 @@ concurrency:
 
 jobs:
   quality:
-    name: Lint, typecheck, and validate Expo config
+    name: Lint, typecheck, test, build, and validate Expo config
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
@@ -43,6 +43,9 @@ jobs:
 
       - name: Run TypeScript compiler
         run: npm run typecheck
+
+      - name: Run telemetry privacy and configuration tests
+        run: npm test
 
       - name: Build Firebase Functions
         run: npm run build --prefix functions

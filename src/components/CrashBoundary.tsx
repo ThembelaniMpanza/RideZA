@@ -7,6 +7,10 @@ import {
   Text,
   View,
 } from "react-native";
+import {
+  captureOperationalError,
+  getTelemetryConfiguration,
+} from "../telemetry/telemetry";
 
 type Props = {
   children: React.ReactNode;
@@ -31,29 +35,39 @@ export class CrashBoundary extends React.Component<Props, State> {
   }
 
   componentDidCatch(error: Error, info: React.ErrorInfo) {
-    console.error("[RideZA crash boundary]", error);
-    console.error("[RideZA component stack]", info.componentStack);
+    captureOperationalError(error, {
+      event_type: "react_error_boundary",
+      source: "crash_boundary",
+    });
+
+    if (__DEV__) {
+      console.error("[RideZA crash boundary]", error);
+      console.error("[RideZA component stack]", info.componentStack);
+    }
   }
 
   render() {
     if (!this.state.error) return this.props.children;
 
+    const { allowCrashDetails } = getTelemetryConfiguration();
+
     return (
       <View style={styles.screen}>
         <ScrollView contentContainerStyle={styles.content}>
-          <Text style={styles.label}>RideZA preview crash</Text>
-          <Text style={styles.title}>Something crashed in the app.</Text>
+          <Text style={styles.label}>RideZA app error</Text>
+          <Text style={styles.title}>Something went wrong.</Text>
           <Text style={styles.message}>
-            The error was logged to the device console. Use adb logcat to collect
-            the full crash output from the preview APK.
+            The incident was reported securely. Reload the app and try again.
           </Text>
 
-          <View style={styles.errorBox}>
-            <Text style={styles.errorTitle}>{this.state.error.message}</Text>
-            {!!this.state.stack && (
-              <Text style={styles.stack}>{this.state.stack}</Text>
-            )}
-          </View>
+          {allowCrashDetails && (
+            <View style={styles.errorBox}>
+              <Text style={styles.errorTitle}>{this.state.error.message}</Text>
+              {!!this.state.stack && (
+                <Text style={styles.stack}>{this.state.stack}</Text>
+              )}
+            </View>
+          )}
 
           <Pressable
             style={({ pressed }) => [

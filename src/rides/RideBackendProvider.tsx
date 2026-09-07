@@ -8,6 +8,11 @@ import {
   type TripMessage,
   type TripState,
 } from "../services/backendApi";
+import {
+  captureOperationalError,
+  startPerformanceMeasurement,
+  trackAnalyticsEvent,
+} from "../telemetry/telemetry";
 
 export type RideBookingInput = {
   pickup: GeoPoint;
@@ -57,6 +62,17 @@ export function RideBackendProvider({ children }: { children: React.ReactNode })
     const payload = event.payload as { tripId?: string };
     if (!activeTrip || payload.tripId !== activeTrip.id) return;
     if (event.type === "trip.status-changed.v1" || event.type === "ride.driver-matched.v1") {
+      if (event.type === "ride.driver-matched.v1") {
+        trackAnalyticsEvent("ride_matched", { source: "realtime" });
+      }
+      if (event.type === "trip.status-changed.v1") {
+        const status = typeof (event.payload as { status?: unknown }).status === "string"
+          ? String((event.payload as { status?: string }).status).toLowerCase()
+          : "changed";
+        if (status === "completed") {
+          trackAnalyticsEvent("trip_completed", { source: "realtime", status });
+        }
+      }
       void refreshActiveTrip().catch(() => undefined);
     }
     if (event.type === "trip.message-sent.v1") {
@@ -77,6 +93,10 @@ export function RideBackendProvider({ children }: { children: React.ReactNode })
     if (!verifiedSession) throw new Error("The backend session is not verified yet.");
     setIsBusy(true);
     setError(null);
+    const fareMeasurement = startPerformanceMeasurement("fare_quote", {
+      ride_class: input.farePlanCode ?? "STANDARD",
+    });
+    let requestMeasurement: ReturnType<typeof startPerformanceMeasurement> | null = null;
     try {
       const farePlanCode = input.farePlanCode ?? "STANDARD";
       const [plans, fareEstimate] = await Promise.all([
@@ -87,9 +107,17 @@ export function RideBackendProvider({ children }: { children: React.ReactNode })
           farePlanCode,
         }),
       ]);
+      fareMeasurement.end("success");
+      trackAnalyticsEvent("fare_quote_viewed", {
+        ride_class: farePlanCode,
+        source: "backend",
+      });
       const plan = plans.find(item => item.code.toUpperCase() === farePlanCode.toUpperCase() && item.isActive);
       if (!plan) throw new Error(`The ${farePlanCode} fare plan is unavailable.`);
 
+      requestMeasurement = startPerformanceMeasurement("ride_request", {
+        ride_class: farePlanCode,
+      });
       const created = await riderApi.requestTrip({
         farePlanId: plan.id,
         pickup: input.pickup,
@@ -100,6 +128,12 @@ export function RideBackendProvider({ children }: { children: React.ReactNode })
         estimatedDurationMinutes: input.durationMinutes,
         currency: fareEstimate.currency,
       });
+      requestMeasurement.end("success");
+      trackAnalyticsEvent("ride_requested", {
+        outcome: "success",
+        ride_class: farePlanCode,
+        source: "backend",
+      });
       const state = await riderApi.tripState(created.id);
       setEstimate(fareEstimate);
       setActiveTrip(state);
@@ -107,6 +141,13 @@ export function RideBackendProvider({ children }: { children: React.ReactNode })
       await realtime.subscribeToTrip(state.id).catch(() => undefined);
       return state;
     } catch (requestError) {
+      fareMeasurement.end("failure");
+      requestMeasurement?.end("failure");
+      captureOperationalError(requestError, {
+        event_type: "ride_request_failed",
+        outcome: "failure",
+        source: "ride_backend_provider",
+      });
       const message = requestError instanceof Error ? requestError.message : "Could not request the ride.";
       setError(message);
       throw requestError;
@@ -133,6 +174,11 @@ export function RideBackendProvider({ children }: { children: React.ReactNode })
     if (!activeTrip) throw new Error("There is no active trip.");
     const cancelled = await riderApi.cancelTrip(activeTrip.id, reason);
     setActiveTrip(cancelled);
+    trackAnalyticsEvent("ride_cancelled", {
+      reason_provided: Boolean(reason?.trim()),
+      source: "rider",
+      status: cancelled.status,
+    });
     await realtime.unsubscribeFromTrip(activeTrip.id).catch(() => undefined);
   }, [activeTrip, realtime]);
 

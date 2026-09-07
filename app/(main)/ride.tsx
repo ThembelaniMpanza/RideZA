@@ -25,6 +25,11 @@ import MapView, {
 import { BlurView } from "expo-blur";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useTheme } from "../../src/theme/ThemeProvider";
+import {
+  captureOperationalError,
+  startPerformanceMeasurement,
+  trackAnalyticsEvent,
+} from "../../src/telemetry/telemetry";
 
 const MAP_STYLE_NO_LABELS = [
   { elementType: "labels", stylers: [{ visibility: "off" }] },
@@ -243,6 +248,9 @@ export default function RideTab() {
     useState<PaymentMethodId>("cash");
   const shouldResetRouteFlowRef = useRef(true);
   const tripProgressAnim = useRef(new Animated.Value(0)).current;
+  const mapInteractionMeasurement = useRef<ReturnType<
+    typeof startPerformanceMeasurement
+  > | null>(null);
 
   const [region, setRegion] = useState<Region>({
     latitude: -26.2041,
@@ -533,6 +541,10 @@ export default function RideTab() {
         });
         setIsFindingRide(false);
         setIsDriverFound(true);
+        trackAnalyticsEvent("ride_matched", {
+          ride_class: selectedRide.id,
+          source: "prototype_ui",
+        });
       };
 
       void hydrateDriverApproach();
@@ -633,9 +645,24 @@ export default function RideTab() {
 
     setIsTripInProgress(false);
     setIsTripCompleted(true);
+    trackAnalyticsEvent("trip_completed", {
+      payment_method: selectedPaymentMethodId,
+      source: "prototype_ui",
+    });
     setIsAwaitingCashConfirmation(isCashPayment);
     setIsReviewStage(!isCashPayment);
-  }, [isCashPayment, isTripInProgress, tripProgress]);
+    if (!isCashPayment) {
+      trackAnalyticsEvent("payment_started", {
+        payment_method: selectedPaymentMethodId,
+        source: "prototype_ui",
+      });
+      trackAnalyticsEvent("payment_completed", {
+        outcome: "success",
+        payment_method: selectedPaymentMethodId,
+        source: "prototype_ui",
+      });
+    }
+  }, [isCashPayment, isTripInProgress, selectedPaymentMethodId, tripProgress]);
 
   useEffect(() => {
     if (!isConfirmingCashPayment) return;
@@ -644,6 +671,11 @@ export default function RideTab() {
       setIsConfirmingCashPayment(false);
       setIsAwaitingCashConfirmation(false);
       setIsReviewStage(true);
+      trackAnalyticsEvent("payment_completed", {
+        outcome: "success",
+        payment_method: "cash",
+        source: "prototype_ui",
+      });
     }, 5000);
 
     return () => clearTimeout(timeout);
@@ -668,43 +700,49 @@ export default function RideTab() {
     let subscription: Location.LocationSubscription | null = null;
 
     const start = async () => {
-      const { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== "granted") return;
-
-      const current = await Location.getCurrentPositionAsync({
-        accuracy: Location.Accuracy.Balanced,
-      });
-      const here = {
-        latitude: current.coords.latitude,
-        longitude: current.coords.longitude,
-      };
-      setPickupLocation(here);
-      const nextRegion = {
-        latitude: here.latitude,
-        longitude: here.longitude,
-        latitudeDelta: region.latitudeDelta,
-        longitudeDelta: region.longitudeDelta,
-      };
-      setRegion(nextRegion);
-      mapRef.current?.animateToRegion(nextRegion, 650);
-
+      const measurement = startPerformanceMeasurement("location_initial_fix");
       try {
-        const rev = await Location.reverseGeocodeAsync(here);
-        const line = toPrettyAddress(rev[0]);
-        if (line) {
-          setPickupLabel(line);
-          setPickupText(line);
+        const { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== "granted") {
+          measurement.end("cancelled");
+          return;
         }
-      } catch {
-        // ignore
-      }
 
-      subscription = await Location.watchPositionAsync(
-        {
+        const current = await Location.getCurrentPositionAsync({
           accuracy: Location.Accuracy.Balanced,
-          distanceInterval: 15,
-        },
-        loc => {
+        });
+        const here = {
+          latitude: current.coords.latitude,
+          longitude: current.coords.longitude,
+        };
+        setPickupLocation(here);
+        const nextRegion = {
+          latitude: here.latitude,
+          longitude: here.longitude,
+          latitudeDelta: region.latitudeDelta,
+          longitudeDelta: region.longitudeDelta,
+        };
+        setRegion(nextRegion);
+        mapRef.current?.animateToRegion(nextRegion, 650);
+
+        try {
+          const rev = await Location.reverseGeocodeAsync(here);
+          const line = toPrettyAddress(rev[0]);
+          if (line) {
+            setPickupLabel(line);
+            setPickupText(line);
+          }
+        } catch {
+          // Address lookup is optional; coordinates are never sent to telemetry.
+        }
+
+        subscription = await Location.watchPositionAsync(
+          {
+            accuracy: Location.Accuracy.Balanced,
+            distanceInterval: 15,
+            timeInterval: 5_000,
+          },
+          loc => {
           // Only auto-follow pickup when not in the middle of destination flow.
           if (
             hasDestinationTextRef.current ||
@@ -727,8 +765,16 @@ export default function RideTab() {
           };
           setRegion(nextRegion);
           mapRef.current?.animateToRegion(nextRegion, 500);
-        },
-      );
+          },
+        );
+        measurement.end("success");
+      } catch (error) {
+        measurement.end("failure");
+        captureOperationalError(error, {
+          event_type: "location_setup_failed",
+          source: "location",
+        });
+      }
     };
 
     start();
@@ -791,6 +837,7 @@ export default function RideTab() {
   useEffect(() => {
     const run = async () => {
       if (!pickupLocation || !destinationLocation) return;
+      const measurement = startPerformanceMeasurement("route_calculation");
       setIsRouting(true);
       try {
         const url =
@@ -837,6 +884,7 @@ export default function RideTab() {
             animated: true,
           });
         }
+        measurement.end("success");
       } catch {
         const line = [pickupLocation, destinationLocation];
         const fallbackDistanceKm = haversineDistanceKm(pickupLocation, destinationLocation);
@@ -872,6 +920,7 @@ export default function RideTab() {
             animated: true,
           });
         }
+        measurement.end("fallback");
       } finally {
         setIsRouting(false);
       }
@@ -938,6 +987,11 @@ export default function RideTab() {
     setSelectedTip(appliedTip > 0 ? appliedTip : null);
     setCustomTip(appliedTip > 0 ? String(appliedTip) : "");
     setIsThankYouStage(true);
+    trackAnalyticsEvent("trip_review_submitted", {
+      rating_bucket: String(selectedRating),
+      source: "prototype_ui",
+      tipped: appliedTip > 0,
+    });
   };
 
   const confirmPickup = (coords: LatLng, label: string) => {
@@ -1006,6 +1060,10 @@ export default function RideTab() {
     setIsEditingDestination(false);
     setActiveField(null);
     setSuggestions([]);
+    trackAnalyticsEvent("destination_selected", {
+      outcome: "success",
+      source: "rider_search",
+    });
 
     const tight = {
       latitude: coords.latitude,
@@ -1042,6 +1100,8 @@ export default function RideTab() {
   };
 
   const handleRegionChangeComplete = (nextRegion: Region) => {
+    mapInteractionMeasurement.current?.end("success");
+    mapInteractionMeasurement.current = null;
     setRegion(nextRegion);
 
     if (isPrecisePickupStep) {
@@ -1061,6 +1121,10 @@ export default function RideTab() {
         }}
         style={StyleSheet.absoluteFillObject}
         initialRegion={region}
+        onRegionChange={() => {
+          mapInteractionMeasurement.current ??=
+            startPerformanceMeasurement("map_interaction");
+        }}
         onRegionChangeComplete={handleRegionChangeComplete}
         showsUserLocation
         showsMyLocationButton={false}
@@ -1479,6 +1543,10 @@ export default function RideTab() {
                       { backgroundColor: colors.primary, opacity: pressed ? 0.82 : 1 },
                     ]}
                     onPress={() => {
+                      trackAnalyticsEvent("fare_quote_viewed", {
+                        ride_class: selectedRide.id,
+                        source: "prototype_ui",
+                      });
                       setIsRideSelectionConfirmed(true);
                       setIsFareSheetExpanded(false);
                       setIsPaymentSheetExpanded(true);
@@ -1727,6 +1795,11 @@ export default function RideTab() {
                   }
                   setIsPrecisePickupStep(false);
                   setIsFindingRide(true);
+                  trackAnalyticsEvent("ride_search_started", {
+                    payment_method: selectedPaymentMethodId,
+                    ride_class: selectedRide.id,
+                    source: "prototype_ui",
+                  });
                 }}
                 accessibilityRole="button"
                 accessibilityLabel="Confirm exact pickup point"
@@ -2117,6 +2190,10 @@ export default function RideTab() {
               onPress={() => {
                 setIsTripCompleted(false);
                 setIsConfirmingCashPayment(true);
+                trackAnalyticsEvent("payment_started", {
+                  payment_method: "cash",
+                  source: "prototype_ui",
+                });
               }}
               accessibilityRole="button"
               accessibilityLabel="Pay driver"

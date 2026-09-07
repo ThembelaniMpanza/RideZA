@@ -4,6 +4,11 @@ import {
   getRequestCorrelationId,
   getResponseCorrelationId,
 } from "./correlation";
+import {
+  captureOperationalError,
+  startPerformanceMeasurement,
+} from "../telemetry/telemetry";
+import { normalizeRouteTemplate } from "../telemetry/privacy";
 
 const REQUEST_TIMEOUT_MS = 15_000;
 
@@ -89,8 +94,15 @@ async function parseBody(response: Response) {
 }
 
 async function send<T>(path: string, init: RequestInit, forceRefresh: boolean): Promise<T> {
+  const routeTemplate = normalizeRouteTemplate(path);
+  const measurement = startPerformanceMeasurement("api_request", {
+    route_template: routeTemplate,
+  });
   const user = auth.currentUser;
-  if (!user) throw new BackendApiError(401, "Sign in before calling the RideZA API.");
+  if (!user) {
+    measurement.end("failure");
+    throw new BackendApiError(401, "Sign in before calling the RideZA API.");
+  }
 
   const headers = new Headers(init.headers);
   const requestCorrelationId = getRequestCorrelationId(headers.get(CORRELATION_HEADER));
@@ -110,6 +122,7 @@ async function send<T>(path: string, init: RequestInit, forceRefresh: boolean): 
     const responseCorrelationId = getResponseCorrelationId(response, requestCorrelationId);
 
     if (response.status === 401 && !forceRefresh) {
+      measurement.end("cancelled");
       return send<T>(path, { ...init, headers }, true);
     }
 
@@ -120,15 +133,27 @@ async function send<T>(path: string, init: RequestInit, forceRefresh: boolean): 
         : `RideZA API request failed with status ${response.status}.`;
       throw new BackendApiError(response.status, message, body, responseCorrelationId);
     }
+    measurement.end("success");
     return body as T;
   } catch (error) {
-    if (error instanceof BackendApiError) throw error;
-    throw new BackendApiError(
-      0,
-      error instanceof Error ? error.message : "Network request failed.",
-      undefined,
-      requestCorrelationId,
-    );
+    measurement.end("failure");
+    const apiError = error instanceof BackendApiError
+      ? error
+      : new BackendApiError(
+        0,
+        error instanceof Error ? error.message : "Network request failed.",
+        undefined,
+        requestCorrelationId,
+      );
+    if (apiError.status === 0 || apiError.status >= 500) {
+      captureOperationalError(apiError, {
+        correlation_id: apiError.correlationId ?? requestCorrelationId,
+        http_status: apiError.status,
+        route_template: routeTemplate,
+        source: "backend_api",
+      });
+    }
+    throw apiError;
   } finally {
     clearTimeout(timeout);
   }
