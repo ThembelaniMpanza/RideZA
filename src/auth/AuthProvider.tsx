@@ -22,6 +22,10 @@ import {
   verifySessionWithServer,
   type VerifiedSession,
 } from "../services/sessionVerification";
+import {
+  captureOperationalError,
+  trackAnalyticsEvent,
+} from "../telemetry/telemetry";
 
 const ONBOARDING_KEY = "hasOnboarded";
 const LEGACY_AUTH_KEYS = ["@user_token", "@user_email", "@firebase_uid"];
@@ -132,7 +136,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
         storedOnboarding = await AsyncStorage.getItem(ONBOARDING_KEY);
       } catch (error) {
-        console.error("[RideZA auth initialization]", error);
+        captureOperationalError(error, {
+          event_type: "auth_initialization_failed",
+          source: "auth_provider",
+        });
+        if (__DEV__) console.error("[RideZA auth initialization]", error);
       }
 
       if (active) {
@@ -195,6 +203,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const completeOnboarding = useCallback(async () => {
     await AsyncStorage.setItem(ONBOARDING_KEY, "true");
     setHasOnboarded(true);
+    trackAnalyticsEvent("onboarding_completed", {
+      outcome: "success",
+      source: "rider_app",
+    });
   }, []);
 
   const signOut = useCallback(async () => {

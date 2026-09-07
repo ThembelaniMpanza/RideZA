@@ -7,12 +7,14 @@ import {
   Pressable,
   ScrollView,
   StyleSheet,
+  Switch,
   Text,
   View,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useAuth } from "../../src/auth/AuthProvider";
 import { useTheme } from "../../src/theme/ThemeProvider";
+import { useTelemetry } from "../../src/telemetry/TelemetryProvider";
 import type { ThemeColors, ThemeMode } from "../../src/theme/theme";
 
 type ThemeOption = {
@@ -60,6 +62,13 @@ export default function AccountTab() {
   const insets = useSafeAreaInsets();
   const { mode, setMode, colors, isDark } = useTheme();
   const { user, signOut, resetOnboarding } = useAuth();
+  const {
+    analyticsConfigured,
+    analyticsConsent,
+    crashReportingConfigured,
+    environment,
+    setAnalyticsConsent,
+  } = useTelemetry();
   const email = user?.email ?? "Email unavailable";
 
   const styles = useMemo(() => makeStyles(colors), [colors]);
@@ -157,6 +166,34 @@ export default function AccountTab() {
           <Text style={styles.currentTheme}>
             Current: {isDark ? "dark" : "light"}
           </Text>
+        </View>
+
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Privacy & analytics</Text>
+          <View style={styles.telemetryCard}>
+            <View style={styles.telemetryRow}>
+              <View style={styles.telemetryCopy}>
+                <Text style={styles.telemetryTitle}>Share anonymous usage</Text>
+                <Text style={styles.telemetryCopyText}>
+                  Helps improve booking reliability and performance. Precise
+                  locations, messages, payment data, and authentication tokens
+                  are never collected.
+                </Text>
+              </View>
+              <Switch
+                value={analyticsConsent}
+                disabled={!analyticsConfigured}
+                onValueChange={granted => void setAnalyticsConsent(granted)}
+                accessibilityLabel="Share anonymous usage analytics"
+                trackColor={{ false: colors.border, true: colors.primary }}
+              />
+            </View>
+            <Text style={styles.telemetryStatus}>
+              Analytics: {analyticsConfigured ? (analyticsConsent ? "enabled" : "off") : "not configured"}
+              {"\n"}Crash reporting: {crashReportingConfigured ? "enabled" : "not configured"}
+              {"\n"}Environment: {environment}
+            </Text>
+          </View>
         </View>
 
         <View style={styles.menuList}>
@@ -350,6 +387,40 @@ function makeStyles(colors: ThemeColors) {
       fontSize: 12,
       fontWeight: "600",
       color: colors.muted,
+    },
+    telemetryCard: {
+      borderRadius: 16,
+      borderWidth: 1,
+      borderColor: colors.border,
+      backgroundColor: colors.cardSolid,
+      padding: 14,
+    },
+    telemetryRow: {
+      flexDirection: "row",
+      alignItems: "center",
+      gap: 14,
+    },
+    telemetryCopy: {
+      flex: 1,
+    },
+    telemetryTitle: {
+      color: colors.text,
+      fontSize: 14,
+      fontWeight: "900",
+    },
+    telemetryCopyText: {
+      marginTop: 4,
+      color: colors.muted,
+      fontSize: 12,
+      lineHeight: 18,
+      fontWeight: "600",
+    },
+    telemetryStatus: {
+      marginTop: 12,
+      color: colors.muted,
+      fontSize: 11,
+      lineHeight: 17,
+      fontWeight: "700",
     },
     menuList: {
       marginTop: 24,

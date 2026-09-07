@@ -1,3 +1,4 @@
+import * as Sentry from "@sentry/react-native";
 import { Stack } from "expo-router";
 import { ActivityIndicator, Text, View } from "react-native";
 import { AuthProvider, useAuth } from "../src/auth/AuthProvider";
@@ -5,6 +6,7 @@ import { CrashBoundary } from "../src/components/CrashBoundary";
 import { RealtimeProvider } from "../src/realtime/RealtimeProvider";
 import { RideBackendProvider } from "../src/rides/RideBackendProvider";
 import { ThemeProvider } from "../src/theme/ThemeProvider";
+import { TelemetryProvider } from "../src/telemetry/TelemetryProvider";
 
 function RootNavigator() {
   const { user, isReady, hasOnboarded } = useAuth();
@@ -56,18 +58,22 @@ function RootNavigator() {
   );
 }
 
-export default function RootLayout() {
+function RootLayout() {
   return (
     <CrashBoundary>
-      <ThemeProvider>
-        <AuthProvider>
-          <RealtimeProvider>
-            <RideBackendProvider>
-              <RootNavigator />
-            </RideBackendProvider>
-          </RealtimeProvider>
-        </AuthProvider>
-      </ThemeProvider>
+      <TelemetryProvider>
+        <ThemeProvider>
+          <AuthProvider>
+            <RealtimeProvider>
+              <RideBackendProvider>
+                <RootNavigator />
+              </RideBackendProvider>
+            </RealtimeProvider>
+          </AuthProvider>
+        </ThemeProvider>
+      </TelemetryProvider>
     </CrashBoundary>
   );
 }
+
+export default Sentry.wrap(RootLayout);

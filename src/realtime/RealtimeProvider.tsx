@@ -11,6 +11,11 @@ import React, {
 import { useAuth } from "../auth/AuthProvider";
 import { getBackendBaseUrl } from "../services/backendApi";
 import { auth } from "../services/firebase";
+import {
+  captureOperationalError,
+  startPerformanceMeasurement,
+  trackAnalyticsEvent,
+} from "../telemetry/telemetry";
 
 export type RealtimeEvent<TPayload = Record<string, unknown>> = {
   eventId: string;
@@ -55,6 +60,14 @@ export function RealtimeProvider({ children }: { children: React.ReactNode }) {
   const activeTripId = useRef<string | null>(null);
   const listeners = useRef(new Set<EventListener>());
   const seenEventIds = useRef(new Set<string>());
+  const reconnectAttempts = useRef(0);
+
+  useEffect(() => {
+    trackAnalyticsEvent("realtime_connection_changed", {
+      reconnect_attempt: reconnectAttempts.current,
+      status,
+    });
+  }, [status]);
 
   useEffect(() => {
     if (!user || !process.env.EXPO_PUBLIC_API_URL?.trim()) {
@@ -63,6 +76,7 @@ export function RealtimeProvider({ children }: { children: React.ReactNode }) {
     }
 
     let disposed = false;
+    const connectionMeasurement = startPerformanceMeasurement("realtime_connect");
     const seenIds = seenEventIds.current;
     const connection = new signalR.HubConnectionBuilder()
       .withUrl(`${getBackendBaseUrl()}/hubs/realtime`, {
@@ -87,8 +101,19 @@ export function RealtimeProvider({ children }: { children: React.ReactNode }) {
       setLastEvent(event);
       listeners.current.forEach(listener => listener(event));
     });
-    connection.onreconnecting(() => setStatus("reconnecting"));
+    connection.onreconnecting(error => {
+      reconnectAttempts.current += 1;
+      setStatus("reconnecting");
+      if (error) {
+        captureOperationalError(error, {
+          event_type: "realtime_reconnecting",
+          reconnect_attempt: reconnectAttempts.current,
+          source: "signalr",
+        });
+      }
+    });
     connection.onreconnected(async () => {
+      reconnectAttempts.current = 0;
       setStatus("connected");
       if (activeTripId.current) {
         await connection.invoke("SubscribeToTrip", activeTripId.current).catch(() => undefined);
@@ -101,14 +126,21 @@ export function RealtimeProvider({ children }: { children: React.ReactNode }) {
     setStatus("connecting");
     connection.start()
       .then(() => {
+        connectionMeasurement.end("success");
         if (!disposed) setStatus("connected");
       })
-      .catch(() => {
+      .catch(error => {
+        connectionMeasurement.end("failure");
+        captureOperationalError(error, {
+          event_type: "realtime_connection_failed",
+          source: "signalr",
+        });
         if (!disposed) setStatus("disconnected");
       });
 
     return () => {
       disposed = true;
+      connectionMeasurement.end("cancelled");
       connectionRef.current = null;
       activeTripId.current = null;
       seenIds.clear();
