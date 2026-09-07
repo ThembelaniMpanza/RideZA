@@ -8,7 +8,9 @@
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web",
-    "lint": "expo lint"
+    "lint": "eslint . --no-cache",
+    "typecheck": "tsc --noEmit",
+    "validate:expo": "expo config --type public"
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.2",
