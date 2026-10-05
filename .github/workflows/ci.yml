@@ -14,6 +14,22 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  secret-scan:
+    name: Scan complete Git history for secrets
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out complete history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run Gitleaks
+        uses: docker://ghcr.io/gitleaks/gitleaks:v8.29.0@sha256:71d3ee5990f2176f763b438298453fc37e87b119122045e176ca9d44ff00b08b
+        with:
+          args: git --redact --no-banner --verbose /github/workspace
+
   quality:
     name: Lint, typecheck, test, build, and validate Expo config
     runs-on: ubuntu-latest

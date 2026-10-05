@@ -5,6 +5,7 @@
   },
   "build": {
     "development": {
+      "environment": "development",
       "developmentClient": true,
       "distribution": "internal",
       "android": {
@@ -23,6 +24,7 @@
       }
     },
     "preview": {
+      "environment": "preview",
       "distribution": "internal",
       "android": {
         "autoIncrement": "version"
@@ -40,6 +42,7 @@
       }
     },
     "production": {
+      "environment": "production",
       "env": {
         "EXPO_PUBLIC_APP_ENV": "production",
         "EXPO_PUBLIC_TELEMETRY_SAMPLE_RATE": "0.1",
